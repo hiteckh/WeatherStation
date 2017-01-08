@@ -1,10 +1,10 @@
 package org.kentuni.WeatherStation.Sensors;
 
-public class humidity {
+public class Humidity {
     // humidity as a fractional value
     private final double rawHumidity;
 
-    public humidity(double rawHumidity) {
+    public Humidity(double rawHumidity) {
         this.rawHumidity = rawHumidity;
     }
 

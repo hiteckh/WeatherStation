@@ -1,11 +1,11 @@
 package org.kentuni.WeatherStation.Sensors;
 
-public class pressure {
+public class Pressure {
     private static final double millibarCoefficient = 1013.2501;
     private static final double inchesOfMercuryCoefficient = 29.9212583001;
     private final double rawPressure;
 
-    public pressure(double atmospheres) {
+    public Pressure(double atmospheres) {
         this.rawPressure = atmospheres;
     }
 

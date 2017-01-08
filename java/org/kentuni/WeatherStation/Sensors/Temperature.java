@@ -1,12 +1,12 @@
 package org.kentuni.WeatherStation.Sensors;
 
-public class temperature {
+public class Temperature {
     private static final double celsiusOffset = 272.15;
     private static final double fahrenheitOffset = -459.67;
     private static final double fahrenheitCoefficient = 9.0/5.0;
     private final double rawTemperature;
 
-    public temperature(double kelvin) {
+    public Temperature(double kelvin) {
         this.rawTemperature = kelvin;
     }
 
