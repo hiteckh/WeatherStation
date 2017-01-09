@@ -1,4 +1,4 @@
-package org.kentuni.WeatherStation.Sensors;
+package org.kentuni.WeatherStation.Units;
 
 public class Temperature {
     private static final double celsiusOffset = 272.15;

@@ -1,14 +1,10 @@
 package org.kentuni.WeatherStation.Drivers;
 
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import org.kentuni.WeatherStation.Sensors.WindSpeed;
+import org.kentuni.WeatherStation.Units.WindSpeed;
 
 import java.util.function.Consumer;
 
-/**
- * Measure wind speed from the weather station.
- * Created by harry on 29/12/2016.
- */
 public class Anemometer {
 
 	private static double CIRCLE_RADIUS_CM = 9;

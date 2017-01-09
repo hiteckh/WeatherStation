@@ -1,4 +1,4 @@
-package org.kentuni.WeatherStation.Sensors;
+package org.kentuni.WeatherStation.Units;
 
 public class Humidity {
     // humidity as a fractional value

@@ -1,4 +1,4 @@
-package org.kentuni.WeatherStation.Sensors;
+package org.kentuni.WeatherStation.Units;
 
 public class Pressure {
     private static final double millibarCoefficient = 1013.2501;
