@@ -1,4 +1,4 @@
- 
+package org.kentuni.WeatherStation;
 
 import com.pi4j.io.gpio.GpioController;
 import org.jfree.chart.ChartFactory;
@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(Main::demoJFreeChart);
-		//final GpioController gpio = Gpio.getController();
+		final Gpio gpio = Gpio.getInstance();
 	}
 
 	public static void demoJFreeChart() {

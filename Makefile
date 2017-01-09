@@ -1,3 +1,3 @@
 .PHONY: compile
 compile:
-	javac -classpath .:classes:lib/'*':java java/org/kentuni/WeatherStation/*.java*
+	javac -classpath .:classes:lib/'*':src src/org/kentuni/WeatherStation/*.java*

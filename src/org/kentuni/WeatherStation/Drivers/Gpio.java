@@ -21,7 +21,7 @@ public final class Gpio {
 
 	private final GpioPinDigitalInput gpioPinAnemometer;
 
-	public Gpio() {
+	private Gpio() {
 		controller = getController();
 
 		gpioPinAnemometer = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
