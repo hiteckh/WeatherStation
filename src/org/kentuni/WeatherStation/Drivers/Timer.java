@@ -5,10 +5,6 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * Created by harry on 29/12/2016.
- * Wrapper for the Java Util Timer that takes information from a supplier and gives it to a listener on the main thread.
- */
 public class Timer<T> {
 
 	/**

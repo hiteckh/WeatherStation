@@ -13,7 +13,7 @@ public class WindSpeed {
 		kilometers = circleCircumferenceCm * revolutions / 100000f;
 	}
 
-	public double getKilometersPerHour() {
+	public double inKilometersPerHour() {
 		return kilometers / (timeMillis / 1000);
 	}
 }
