@@ -1,18 +1,39 @@
 package org.kentuni.WeatherStation;
 
-import org.kentuni.WeatherStation.Sensors.*;
+import org.kentuni.WeatherStation.Sensors.HumiditySensor;
+import org.kentuni.WeatherStation.Sensors.PressureSensor;
+import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
+import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
+
 import org.kentuni.WeatherStation.Implementations.Factory;
 import org.kentuni.WeatherStation.Implementations.Platform;
 
+/**
+ * A class providing a high level interface to a weather station device.
+ *
+ * @author  Joe Reid
+ */
 public class SimpleWeatherStation {
-    private HumiditySensor humiditySensor;
-    private PressureSensor pressureSensor;
-    private TemperatureSensor temperatureSensor;
-    private WindSpeedSensor windSpeedSensor;
+    /**{@link HumiditySensor} instance built for the weather station.*/
+    private final HumiditySensor humiditySensor;
 
+    /**{@link PressureSensor} instance built for the weather station.*/
+    private final PressureSensor pressureSensor;
+
+    /**{@link TemperatureSensor} instance built for the weather station.*/
+    private final TemperatureSensor temperatureSensor;
+
+    /**{@link WindSpeedSensor} instance built for the weather station.*/
+    private final WindSpeedSensor windSpeedSensor;
+
+    /**
+     * The sole constructor for a {@link SimpleWeatherStation} object.
+     * The constructor builds the object for the correct platform and provides
+     * simple methods to access live sensor values.
+     */
     public SimpleWeatherStation() {
         // set up a sensor factory for this platform
-        Factory wsFactory = new Factory(Platform.WEATHERSTATION_V1);
+        Factory wsFactory = new Factory(Platform.MOCK);
 
         // populate the internal sensor variables
         this.humiditySensor = wsFactory.getHumiditySensor();
@@ -21,19 +42,47 @@ public class SimpleWeatherStation {
         this.windSpeedSensor = wsFactory.getWindSpeedSensor();
     }
 
-    public double getPercentHumidity() {
+    /**
+     * This method returns the most up to date sensor data from the internal
+     * {@link HumiditySensor} in percent.
+     *
+     * @return The current humidity in percent
+     * @see HumiditySensor
+     */
+    public final double getPercentHumidity() {
         return this.humiditySensor.getHumidity().inPercent();
     }
 
-    public double getMillibarPressure() {
+    /**
+     * This method returns the most up to date sensor data from the internal
+     * {@link PressureSensor} in millibars.
+     *
+     * @return The current pressure in millibars
+     * @see PressureSensor
+     */
+    public final double getMillibarPressure() {
         return this.pressureSensor.getPressure().inMillibars();
     }
 
-    public double getCelsiusTemperature() {
+    /**
+     * This method returns the most up to date sensor data from the internal
+     * {@link TemperatureSensor} in celsius.
+     *
+     * @return The current temperature in celsius
+     * @see TemperatureSensor
+     */
+    public final double getCelsiusTemperature() {
         return this.temperatureSensor.getTemperature().inCelsius();
     }
 
-    public double getKilometersPerHourWindSpeed() {
+    /**
+     * This method returns the most up to date sensor data from the internal
+     * {@link WindSpeedSensor} in kilometers per hour.
+     *
+     * @return The current wind speed in kilometers per hour
+     * @see WindSpeedSensor
+     */
+    public final double getKilometersPerHourWindSpeed() {
         return this.windSpeedSensor.getWindSpeed().inKilometersPerHour();
     }
 }

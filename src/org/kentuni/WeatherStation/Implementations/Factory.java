@@ -1,15 +1,61 @@
 package org.kentuni.WeatherStation.Implementations;
 
-import org.kentuni.WeatherStation.Sensors.*;
-import org.kentuni.WeatherStation.MockSensors.*;
+import org.kentuni.WeatherStation.Sensors.HumiditySensor;
+import org.kentuni.WeatherStation.Sensors.PressureSensor;
+import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
+import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
 
+import org.kentuni.WeatherStation.MockSensors.MockHumiditySensor;
+import org.kentuni.WeatherStation.MockSensors.MockPressureSensor;
+import org.kentuni.WeatherStation.MockSensors.MockTemperatureSensor;
+import org.kentuni.WeatherStation.MockSensors.MockWindSpeedSensor;
+
+
+/**
+ * A class for building the sensor set for a given target {@link Platform}.
+ *
+ * @author  Joe Reid
+ * @see Platform
+ * @see HumiditySensor
+ * @see PressureSensor
+ * @see TemperatureSensor
+ * @see WindSpeedSensor
+ */
 public class Factory {
-    private HumiditySensor humiditySensor;
-    private PressureSensor pressureSensor;
-    private TemperatureSensor temperatureSensor;
-    private WindSpeedSensor windSpeedSensor;
+    /**{@link HumiditySensor} instance built for the {@link Platform} supplied
+     * to the constructor.*/
+    private final HumiditySensor humiditySensor;
 
-    public Factory(Platform platform) throws UnsupportedOperationException {
+    /**{@link PressureSensor} instance built for the {@link Platform} supplied
+     * to the constructor.*/
+    private final PressureSensor pressureSensor;
+
+    /**{@link TemperatureSensor} instance built for the {@link Platform}
+     * supplied to the constructor.*/
+    private final TemperatureSensor temperatureSensor;
+
+    /**{@link WindSpeedSensor} instance built for the {@link Platform} supplied
+     * to the constructor.*/
+    private final WindSpeedSensor windSpeedSensor;
+
+    /**
+     * The sole constructor for a {@link Factory} object.
+     * The platform argument must specify which {@link Platform} target they
+     * wish the {@link Factory} to build for.
+     * <p>
+     * This constructor will throw a {@link UnsupportedOperationException} when
+     * the {@link Platform} target is not supported, or when any of the sensors
+     * failed to initialize and threw an exception themselves.
+     *
+     * @throws UnsupportedOperationException when given an unsuported platform
+     * or initialization of a platform fails.
+     *
+     * @param platform an enum type representing the desired platform target.
+     * @see Platform
+     */
+    public Factory(final Platform platform) throws
+        UnsupportedOperationException {
+
         switch (platform) {
             case WEATHERSTATION_V1:
                 try {
@@ -18,7 +64,10 @@ public class Factory {
                     this.temperatureSensor = new PiTemperatureSensor();
                     this.windSpeedSensor = new PiWindSpeedSensor();
                 } catch (Exception e) {
-                    throw new UnsupportedOperationException("The provided platform is supported but failed to initialize");
+                    throw new UnsupportedOperationException(
+                        "The provided platform is supported but failed to "
+                        + "initialize"
+                    );
                 }
                 break;
 
@@ -27,25 +76,64 @@ public class Factory {
                 this.pressureSensor = new MockPressureSensor();
                 this.temperatureSensor = new MockTemperatureSensor();
                 this.windSpeedSensor = new MockWindSpeedSensor();
+                break;
 
             default:
-                throw new UnsupportedOperationException("The provided platform is not supported");
+                throw new UnsupportedOperationException(
+                    "The provided platform is not supported"
+                );
         }
     }
 
-    public HumiditySensor getHumiditySensor() {
+    /**
+     * A getter method for the {@link HumiditySensor} apropriate for the
+     * {@link Platform} the {@link Factory} instance was constructed with.
+     *
+     * @return The {@link HumiditySensor} apropriate for the {@link Platform}
+     * the {@link Factory} instance was constructed with.
+     *
+     * @see HumiditySensor
+     */
+    public final HumiditySensor getHumiditySensor() {
         return this.humiditySensor;
     }
 
-    public PressureSensor getPressureSensor() {
+    /**
+     * A getter method for the {@link PressureSensor} apropriate for the
+     * {@link Platform} the {@link Factory} instance was constructed with.
+     *
+     * @return The {@link PressureSensor} apropriate for the {@link Platform}
+     * the {@link Factory} instance was constructed with.
+     *
+     * @see PressureSensor
+     */
+    public final PressureSensor getPressureSensor() {
         return this.pressureSensor;
     }
 
-    public TemperatureSensor getTemperatureSensor() {
+    /**
+     * A getter method for the {@link TemperatureSensor} apropriate for the
+     * {@link Platform} the {@link Factory} instance was constructed with.
+     *
+     * @return The {@link TemperatureSensor} apropriate for the {@link Platform}
+     * the {@link Factory} instance was constructed with.
+     *
+     * @see TemperatureSensor
+     */
+    public final TemperatureSensor getTemperatureSensor() {
         return this.temperatureSensor;
     }
 
-    public WindSpeedSensor getWindSpeedSensor() {
+    /**
+     * A getter method for the {@link windSpeedSensor} apropriate for the
+     * {@link Platform} the {@link Factory} instance was constructed with.
+     *
+     * @return The {@link WindSpeedSensor} apropriate for the {@link Platform}
+     * the {@link Factory} instance was constructed with.
+     *
+     * @see WindSpeedSensor
+     */
+    public final WindSpeedSensor getWindSpeedSensor() {
         return this.windSpeedSensor;
     }
 
