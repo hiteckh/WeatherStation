@@ -20,7 +20,7 @@ public final class Anemometer {
 
 	private static Pin PIN_ANEMOMETER = RaspiBcmPin.GPIO_05;
 
-	private final GpioPinDigitalInput gpioPinAnemometer;
+	private final GpioPinDigitalInput GPIO_PIN_ANEMOMETER;
 
 	/**
 	 * Constructor.
@@ -28,7 +28,7 @@ public final class Anemometer {
 	 */
 	private Anemometer() {
 		final GpioController controller = Gpio.getController();
-		gpioPinAnemometer = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
+		GPIO_PIN_ANEMOMETER = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public final class Anemometer {
 	 * @param listener The listener to add.
 	 */
 	public void addListener(final AnemometerListener listener) {
-		gpioPinAnemometer.addListener((GpioPinListenerDigital) event -> listener.onTriggered());
+		GPIO_PIN_ANEMOMETER.addListener((GpioPinListenerDigital) event -> listener.onTriggered());
 	}
 }
 

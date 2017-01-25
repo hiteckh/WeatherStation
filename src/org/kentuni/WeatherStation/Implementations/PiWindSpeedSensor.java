@@ -28,6 +28,14 @@ class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
         Anemometer.getInstance().addListener(this);
 
         // When the object is first created, the last collection time is set to the current time.
+        resetCounter();
+    }
+
+    /**
+     * Resets the counter, and the last collection time.
+     */
+    private void resetCounter() {
+        count = 0;
         lastCollectionTimeMillis = System.currentTimeMillis();
     }
 
@@ -44,9 +52,7 @@ class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
         // The amount of time that's passed since something last asked for the wind speed, in milliseconds.
         final long timePassedMillis = currentTimeMillis - lastCollectionTimeMillis;
 
-        // Resets the count, and the last collection time for next time.
-        lastCollectionTimeMillis = currentTimeMillis;
-        count = 0;
+        resetCounter();
 
         // Creates a new WindSpeed object, letting it know how many rotations have occurred, the circle radius,
         // and how long we've been counting, in milliseconds.
