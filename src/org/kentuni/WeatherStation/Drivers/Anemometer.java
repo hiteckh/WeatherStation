@@ -1,51 +1,42 @@
 package org.kentuni.WeatherStation.Drivers;
 
+import com.pi4j.io.gpio.*;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import org.kentuni.WeatherStation.Units.WindSpeed;
 
-import java.util.function.Consumer;
+/**
+ * Singleton class for interacting with the anemometer.
+ */
+public final class Anemometer {
 
-public class Anemometer {
+	private static Anemometer INSTANCE = null;
 
-	private static double CIRCLE_RADIUS_CM = 9;
+	public static synchronized Anemometer getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new Anemometer();
+		}
 
-	private int count = 0;
-
-	private long lastCollectionTimeMillis;
-
-	private Timer<WindSpeed> timer;
-
-	public Anemometer() {
-		Gpio.getInstance().getAnemometerPin().addListener(
-				(GpioPinListenerDigital) event -> count++
-		);
-		lastCollectionTimeMillis = System.currentTimeMillis();
+		return INSTANCE;
 	}
 
-	public Anemometer(final Consumer<WindSpeed> listener, final int sampleTime) {
-		this();
-		this.timer = new Timer<>(listener, this::getWindSpeed, sampleTime);
+	private static Pin PIN_ANEMOMETER = RaspiBcmPin.GPIO_05;
+
+	private final GpioPinDigitalInput gpioPinAnemometer;
+
+	/**
+	 * Constructor.
+	 * Grabs the GpioController and sets the pin state for the anemometer.
+	 */
+	private Anemometer() {
+		final GpioController controller = Gpio.getController();
+		gpioPinAnemometer = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
 	}
 
 	/**
-	 * Stops automatic updates from occurring.
+	 * Adds a listener to the anemometer.
+	 * @param listener The listener to add.
 	 */
-	public void stopUpdates() {
-		if (timer != null)
-			timer.stop();
-		timer = null;
+	public void addListener(final AnemometerListener listener) {
+		gpioPinAnemometer.addListener((GpioPinListenerDigital) event -> listener.onTriggered());
 	}
-
-	/**
-	 *
-	 * @return The wind speed.
-	 */
-	public WindSpeed getWindSpeed() {
-		final long timePassedMillis = System.currentTimeMillis() - lastCollectionTimeMillis;
-
-		final double speedPerSec = count / (timePassedMillis / 1000f);
-		return new WindSpeed(count / 2, CIRCLE_RADIUS_CM, timePassedMillis);
-	}
-
-
 }
+
