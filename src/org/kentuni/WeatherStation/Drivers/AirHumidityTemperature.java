@@ -14,7 +14,7 @@ import com.pi4j.io.i2c.I2CBus;
 public class AirHumidityTemperature {
     private static HTU21D instance = null;
 
-    public static HTU21D getDriver() throws IOException {
+    public static HTU21D getDriver() throws Exception {
         if (AirHumidityTemperature.instance == null) {
 
             synchronized (AirHumidityTemperature.class) {

@@ -1,5 +1,7 @@
 package org.kentuni.WeatherStation.Drivers;
 
+import java.io.IOException;
+
 import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.io.i2c.I2CBus;
 
@@ -12,13 +14,13 @@ import com.pi4j.io.i2c.I2CBus;
 public class AirPressureTemperature {
     private static BMP180 instance = null;
 
-    public static BMP180 getDriver() {
+    public static BMP180 getDriver() throws Exception{
         if (AirPressureTemperature.instance == null) {
 
             synchronized (AirPressureTemperature.class) {
                 if (AirPressureTemperature.instance == null) {
                     AirPressureTemperature.instance = new BMP180(
-                        I2CFactory.getInstance (I2CBus.BUS_1),
+                        I2CFactory.getInstance(I2CBus.BUS_1),
                         0x77
                     );
                 }

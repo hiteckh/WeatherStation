@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(Main::demoJFreeChart);
-		final Gpio gpio = Gpio.getInstance();
+		final GpioController gpio = Gpio.getController();
 	}
 
 	public static void demoJFreeChart() {

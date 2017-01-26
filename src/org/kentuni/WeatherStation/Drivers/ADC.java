@@ -14,13 +14,14 @@ import com.pi4j.io.i2c.I2CBus;
 public class ADC {
     private static MCP3427 instance = null;
 
-    public static MCP3427 getDriver() throws IOException {
+    public static MCP3427 getDriver() throws Exception {
         if (ADC.instance == null) {
 
             synchronized (ADC.class) {
                 if (ADC.instance == null) {
                     ADC.instance = new MCP3427(
-                        I2CFactory.getInstance (I2CBus.BUS_1, 0x69)
+                        I2CFactory.getInstance(I2CBus.BUS_1),
+                        0x69
                     );
                 }
             }
