@@ -27,7 +27,7 @@ public final class Anemometer {
 	 * Grabs the GpioController and sets the pin state for the anemometer.
 	 */
 	private Anemometer() {
-		final GpioController controller = Gpio.getController();
+		final GpioController controller = PinUtil.getController();
 		GPIO_PIN_ANEMOMETER = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
 	}
 

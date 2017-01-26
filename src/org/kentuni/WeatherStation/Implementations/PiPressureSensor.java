@@ -6,18 +6,16 @@ import org.kentuni.WeatherStation.Drivers.AirPressureTemperature;
 
 import java.io.IOException;
 
-class PiPressureSensor  implements PressureSensor {
+class PiPressureSensor implements PressureSensor {
+
+    private final AirPressureTemperature SENSOR;
+
     public PiPressureSensor() throws IOException {
-        try {
-            AirPressureTemperature.getInstance().setMode(3);
-        } catch (IOException e) {
-            throw e;
-        }
+        SENSOR = AirPressureTemperature.getInstance();
     }
 
     public Pressure getPressure() {
-        int rawPressure = AirPressureTemperature.getInstance()
-            .read().getPressure(); //atmospheres?
+        final int rawPressure = SENSOR.readPressure();
         return new Pressure(rawPressure);
     }
 }

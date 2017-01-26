@@ -2,7 +2,6 @@ package org.kentuni.WeatherStation.Drivers;
 
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import org.kentuni.WeatherStation.Implementations.PiRainSensor;
 
 /**
  * Singleton class for interacting with the rain sensor.
@@ -28,7 +27,7 @@ public final class RainMeter {
      * Grabs the GpioController and sets the pin state for the rain sensor.
      */
 	private RainMeter() {
-		final GpioController controller = Gpio.getController();
+		final GpioController controller = PinUtil.getController();
 		GPIO_PIN_RAIN_SENSOR = controller.provisionDigitalInputPin(PIN_RAIN_SENSOR);
 	}
 
