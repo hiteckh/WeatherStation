@@ -7,7 +7,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
-import org.kentuni.WeatherStation.Drivers.Gpio;
+import org.kentuni.WeatherStation.Drivers.PinUtil;
 
 import javax.swing.*;
 
@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(Main::demoJFreeChart);
-		final GpioController gpio = Gpio.getController();
+		final GpioController gpio = PinUtil.getController();
 	}
 
 	public static void demoJFreeChart() {
