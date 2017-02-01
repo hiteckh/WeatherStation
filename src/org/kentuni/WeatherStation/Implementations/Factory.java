@@ -32,7 +32,7 @@ public class Factory {
 
     /**{@link TemperatureSensor} instance built for the {@link Platform}
      * supplied to the constructor.*/
-    private final TemperatureSensor temperatureSensor;
+    private final TemperatureSensor ambientTemperatureSensor;
 
     /**{@link WindSpeedSensor} instance built for the {@link Platform} supplied
      * to the constructor.*/
@@ -61,7 +61,7 @@ public class Factory {
                 try {
                     this.humiditySensor = new PiHumiditySensor();
                     this.pressureSensor = new PiPressureSensor();
-                    this.temperatureSensor = new PiTemperatureSensor();
+                    this.ambientTemperatureSensor = new PiAmbientTemperatureSensor();
                     this.windSpeedSensor = new PiWindSpeedSensor();
                 } catch (Exception e) {
                     throw new UnsupportedOperationException(
@@ -74,7 +74,7 @@ public class Factory {
             case MOCK:
                 this.humiditySensor = new MockHumiditySensor();
                 this.pressureSensor = new MockPressureSensor();
-                this.temperatureSensor = new MockTemperatureSensor();
+                this.ambientTemperatureSensor = new MockTemperatureSensor();
                 this.windSpeedSensor = new MockWindSpeedSensor();
                 break;
 
@@ -120,8 +120,8 @@ public class Factory {
      *
      * @see TemperatureSensor
      */
-    public final TemperatureSensor getTemperatureSensor() {
-        return this.temperatureSensor;
+    public final TemperatureSensor getAmbientTemperatureSensor() {
+        return this.ambientTemperatureSensor;
     }
 
     /**

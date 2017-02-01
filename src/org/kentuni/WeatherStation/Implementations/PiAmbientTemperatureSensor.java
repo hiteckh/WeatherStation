@@ -1,17 +1,17 @@
 package org.kentuni.WeatherStation.Implementations;
 
+
 import org.kentuni.WeatherStation.Drivers.AirHumidityTemperature;
 import org.kentuni.WeatherStation.Drivers.HTU21D;
 
-import org.kentuni.WeatherStation.Units.Humidity;
-import org.kentuni.WeatherStation.Sensors.HumiditySensor;
+import org.kentuni.WeatherStation.Units.Temperature;
+import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
 import org.kentuni.WeatherStation.Sensors.SensorError;
 
-
-class PiHumiditySensor implements HumiditySensor {
+class PiAmbientTemperatureSensor implements TemperatureSensor {
     private HTU21D sensor;
 
-    public PiHumiditySensor() throws SensorError {
+    public PiAmbientTemperatureSensor() throws SensorError {
         try {
             this.sensor = AirHumidityTemperature.getDriver();
         } catch (Exception e) {
@@ -19,11 +19,12 @@ class PiHumiditySensor implements HumiditySensor {
         }
     }
 
-    public Humidity getHumidity() throws SensorError {
+    public Temperature getTemperature() throws SensorError {
         try {
-            return new Humidity(this.sensor.read().getHumidity());
+            return new Temperature(this.sensor.read().getTemperature());
         } catch (Exception e) {
             throw new SensorError(e);
         }
     }
 }
+

@@ -1,8 +1,7 @@
 package org.kentuni.WeatherStation;
 
+import org.kentuni.WeatherStation.Sensors.SensorError;
 import org.kentuni.WeatherStation.Sensors.HumiditySensor;
-import org.kentuni.WeatherStation.Sensors.HumiditySensorError;
-
 import org.kentuni.WeatherStation.Sensors.PressureSensor;
 import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
 import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
@@ -23,7 +22,7 @@ public class SimpleWeatherStation {
     private final PressureSensor pressureSensor;
 
     /**{@link TemperatureSensor} instance built for the weather station.*/
-    private final TemperatureSensor temperatureSensor;
+    private final TemperatureSensor ambientTemperatureSensor;
 
     /**{@link WindSpeedSensor} instance built for the weather station.*/
     private final WindSpeedSensor windSpeedSensor;
@@ -40,7 +39,7 @@ public class SimpleWeatherStation {
         // populate the internal sensor variables
         this.humiditySensor = wsFactory.getHumiditySensor();
         this.pressureSensor = wsFactory.getPressureSensor();
-        this.temperatureSensor = wsFactory.getTemperatureSensor();
+        this.ambientTemperatureSensor = wsFactory.getAmbientTemperatureSensor();
         this.windSpeedSensor = wsFactory.getWindSpeedSensor();
     }
 
@@ -51,7 +50,7 @@ public class SimpleWeatherStation {
      * @return The current humidity in percent
      * @see HumiditySensor
      */
-    public final double getPercentHumidity() throws HumiditySensorError {
+    public final double getPercentHumidity() throws SensorError {
         return this.humiditySensor.getHumidity().inPercent();
     }
 
@@ -73,8 +72,8 @@ public class SimpleWeatherStation {
      * @return The current temperature in celsius
      * @see TemperatureSensor
      */
-    public final double getCelsiusTemperature() {
-        return this.temperatureSensor.getTemperature().inCelsius();
+    public final double getCelsiusAmbientTemperature() throws SensorError {
+        return this.ambientTemperatureSensor.getTemperature().inCelsius();
     }
 
     /**
