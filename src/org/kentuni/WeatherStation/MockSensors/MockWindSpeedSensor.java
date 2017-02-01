@@ -29,7 +29,7 @@ public class MockWindSpeedSensor implements WindSpeedSensor {
     }
 
     public WindSpeed getWindSpeed() {
-        return new WindSpeed(this.revolutions, this.circleRadiusCm, this.timeMillis);
+        return new WindSpeed(this.revolutions, this.circleRadiusCm, 1, this.timeMillis);
     }
 
 }
