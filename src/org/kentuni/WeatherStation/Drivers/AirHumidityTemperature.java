@@ -3,6 +3,7 @@ package org.kentuni.WeatherStation.Drivers;
 import java.io.IOException;
 
 import com.pi4j.io.i2c.I2CFactory;
+import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 import com.pi4j.io.i2c.I2CBus;
 
 /**
@@ -14,7 +15,7 @@ import com.pi4j.io.i2c.I2CBus;
 public class AirHumidityTemperature {
     private static HTU21D instance = null;
 
-    public static HTU21D getDriver() throws Exception {
+    public static HTU21D getDriver() throws IOException, UnsupportedBusNumberException {
         if (AirHumidityTemperature.instance == null) {
 
             synchronized (AirHumidityTemperature.class) {

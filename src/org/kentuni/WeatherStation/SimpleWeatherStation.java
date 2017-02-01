@@ -1,6 +1,8 @@
 package org.kentuni.WeatherStation;
 
 import org.kentuni.WeatherStation.Sensors.HumiditySensor;
+import org.kentuni.WeatherStation.Sensors.HumiditySensorError;
+
 import org.kentuni.WeatherStation.Sensors.PressureSensor;
 import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
 import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
@@ -49,7 +51,7 @@ public class SimpleWeatherStation {
      * @return The current humidity in percent
      * @see HumiditySensor
      */
-    public final double getPercentHumidity() {
+    public final double getPercentHumidity() throws HumiditySensorError {
         return this.humiditySensor.getHumidity().inPercent();
     }
 
