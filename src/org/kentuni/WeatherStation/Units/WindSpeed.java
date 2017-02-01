@@ -26,15 +26,15 @@ public class WindSpeed {
      * @param timeMillis the time period that the revolutions value was measured
      * over
      */
-    public WindSpeed(final double revolutions, final double circleRadiusCm,
+    public WindSpeed(final double revolutions, final double circleRadiusCm, final double calibrationFactor,
             final long timeMillis) {
 
         this.timeMillis = timeMillis;
 
-        final double circleCircumferenceCm = (Math.PI + Math.PI)
-            * circleRadiusCm;
+        // 2πr
+        final double circleCircumferenceCm = 2 * Math.PI * circleRadiusCm;
 
-        kilometers = circleCircumferenceCm * revolutions / 100000f;
+        kilometers = calibrationFactor * circleCircumferenceCm * revolutions / 100000f;
     }
 
     /**

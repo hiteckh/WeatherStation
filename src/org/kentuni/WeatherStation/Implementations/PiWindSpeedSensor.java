@@ -6,12 +6,17 @@ import org.kentuni.WeatherStation.Units.WindSpeed;
 import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
 
 
-class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
+public class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
 
     /**
      * The radius of the anemometer, in cm.
      */
     private static double CIRCLE_RADIUS_CM = 9;
+
+    /**
+     * The amount to multiply our results by to correct for lost energy spinning the anemometer.
+     */
+    private static double CALIBRATION_FACTOR = 1.18;
 
     /**
      * The number of times the anemometer has turned a half-circle.
@@ -56,7 +61,7 @@ class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
 
         // Creates a new WindSpeed object, letting it know how many rotations have occurred, the circle radius,
         // and how long we've been counting, in milliseconds.
-        return new WindSpeed(count / 2, CIRCLE_RADIUS_CM, timePassedMillis);
+        return new WindSpeed(count / 2, CIRCLE_RADIUS_CM, CALIBRATION_FACTOR, timePassedMillis);
     }
 
     /**
