@@ -1,14 +1,7 @@
 package org.kentuni.WeatherStation.Implementations;
 
-import org.kentuni.WeatherStation.Sensors.HumiditySensor;
-import org.kentuni.WeatherStation.Sensors.PressureSensor;
-import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
-import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
-
-import org.kentuni.WeatherStation.MockSensors.MockHumiditySensor;
-import org.kentuni.WeatherStation.MockSensors.MockPressureSensor;
-import org.kentuni.WeatherStation.MockSensors.MockTemperatureSensor;
-import org.kentuni.WeatherStation.MockSensors.MockWindSpeedSensor;
+import org.kentuni.WeatherStation.Sensors.*;
+import org.kentuni.WeatherStation.MockSensors.*;
 
 
 /**

@@ -1,11 +1,6 @@
 package org.kentuni.WeatherStation;
 
-import org.kentuni.WeatherStation.Sensors.SensorError;
-import org.kentuni.WeatherStation.Sensors.HumiditySensor;
-import org.kentuni.WeatherStation.Sensors.PressureSensor;
-import org.kentuni.WeatherStation.Sensors.TemperatureSensor;
-import org.kentuni.WeatherStation.Sensors.WindSpeedSensor;
-
+import org.kentuni.WeatherStation.Sensors.*;
 import org.kentuni.WeatherStation.Implementations.Factory;
 import org.kentuni.WeatherStation.Implementations.Platform;
 
@@ -34,7 +29,7 @@ public class SimpleWeatherStation {
      */
     public SimpleWeatherStation() {
         // set up a sensor factory for this platform
-        Factory wsFactory = new Factory(Platform.MOCK);
+        Factory wsFactory = new Factory(Platform.WEATHERSTATION_V1);
 
         // populate the internal sensor variables
         this.humiditySensor = wsFactory.getHumiditySensor();
