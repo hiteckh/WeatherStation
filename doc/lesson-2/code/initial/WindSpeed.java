@@ -12,14 +12,9 @@ public class WindSpeed {
     /**
      * The sole constructor for a {@link WindSpeed} object.
      *
-     * @param revolutions the number of revolutions of the wind sensor over the
-     * provided time period with fractional accuracy.
+     * @param halfRevolutions the number of revolutions of the wind sensor.
      *
-     * @param circleRadiusCm the radius of the arc drawn by the arms of the
-     * wind speed sensor hardware.
-     *
-     * @param timeMillis the time period that the revolutions value was measured
-     * over
+     * @param timeMillis the amount of time that's passed.
      */
     public WindSpeed(final int halfRevolutions,
             final long timeMillis) {
