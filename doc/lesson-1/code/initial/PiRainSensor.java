@@ -3,7 +3,7 @@ import org.kentuni.WeatherStation.Drivers.RainMeterListener;
 import org.kentuni.WeatherStation.Sensors.RainSensor;
 import org.kentuni.WeatherStation.Units.RainFall;
 
-public class PiRainSensor implements RainSensor, RainMeterListener {
+public class PiRainSensor implements RainMeterListener {
 
     /**
      * The constructor.
@@ -24,6 +24,7 @@ public class PiRainSensor implements RainSensor, RainMeterListener {
      * Get the amount of rainfall since we last reset the counter.
      */
     public double getRainfall() {
+        return 0;
     }
 
     /**

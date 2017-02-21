@@ -3,7 +3,7 @@ import org.kentuni.WeatherStation.Drivers.RainMeterListener;
 import org.kentuni.WeatherStation.Sensors.RainSensor;
 import org.kentuni.WeatherStation.Units.RainFall;
 
-public class PiRainSensor implements RainSensor, RainMeterListener {
+public class PiRainSensor implements RainMeterListener {
 
     /**
      * The amount of rainfall the rain sensor bucket manages to catch.
