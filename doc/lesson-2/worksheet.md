@@ -27,7 +27,7 @@ To keep things simple, the *PiWindSpeedSensor* class is given a time when it is 
 
 ## Detecting anemometer interrupts
 
-First, we need to be able to count the signals coming from the anemometer.
+First, you need to be able to count the signals coming from the anemometer.
 Open the *PiWindSpeedSensor* class.
 This code is the same as lesson 1, in that you will need a counter, and you will need to increment the counter in the *onTriggered* method.
 
@@ -40,7 +40,6 @@ Because turning the anemometer's data into something useful requires some maths,
 
 To use it, you will need to create a new *WindSpeed* object:
 
-**Todo: Decide on point of view. Is it "you" or "we"? Should probably stick to one and use throughout.**
 
   ```java
   public WindSpeed getWindSpeed() {
@@ -54,7 +53,7 @@ The above code also resets the count for the next time we're asked for the wind 
 
 ## Testing our work so far
 
-We can make sure that what we have so far works by compiling, right clicking on *PiWindSpeedSensor*, and running the *onInterval* method.
+You can make sure that what you have so far works by compiling, right clicking on *PiWindSpeedSensor*, and running the *onInterval* method.
 Pick an interval, in milliseconds, that the speed will be calculated.
 You should see that the number of half rotations is printed on the screen repeatedly.
 
@@ -63,7 +62,7 @@ When you are happy that everything is working, right click the stripey red bar i
 **Note**
 If you do not reset the Java virtual machine, you won't be able to compile or run another test.
 
-We can now count the signals from the anemometer and represent them as *WindSpeed* objects; now let's fill in the *WindSpeed* class.
+You should now be able to count the signals from the anemometer and represent them as *WindSpeed* objects; now let's fill in the *WindSpeed* class.
 
 ## Calculating wind speed
 
@@ -73,7 +72,7 @@ We know that the anemometer registers two signals per spin, so we can count the 
 
     **speed = distance / time**
 
-  To calculate **speed** we need to know the **distance** travelled in a certain amount of **time**. We already presume the time in *PiWindSpeedSensor*, so we don't need to calulate it any further.
+  To calculate **speed** we need to know the **distance** travelled in a certain amount of **time**. We already presume the time in *PiWindSpeedSensor*, so we don't need to calculate it any further.
 
 1. The distance travelled by one of the cups will be equal to the number of rotations * the distance around the edge of the circle (circumference). So we could write:
 
@@ -93,13 +92,14 @@ We know that the anemometer registers two signals per spin, so we can count the 
 
 Now that we know how to calculate the wind speed from the sensor signals, we need to write the code.
 
-First of all, open up the *WindSpeed* class and remove the *halfRevolutions* field; we won't need it anymore.
+First of all, open up the *WindSpeed* class, remove the *halfRevolutions* field, and remove the *inHalfRevolutions* method; you won't need them anymore.
 
 We will need the constant *CIRCLE_RADIUS_CM* (9cm in the Pi kit).
 We will also need to store the time for later use, and convert the half revolutions we get from the anemometer into a distance in centimeters.
-Once we have this, we can calculate the speed in centimeters per second. Overall, our code should look like this:
+Once we have this, we can calculate the speed in centimeters per millisecond. Overall, our code should look like this:
 
   ```java
+  
   // CIRCLE_RADIUS_CM constant = 9
   
   // timeMillis field.
@@ -111,33 +111,32 @@ Once we have this, we can calculate the speed in centimeters per second. Overall
     // Calculate and store the distance in centimeters from the number of half revolutions, and the CIRCLE_RADIUS_CM constant.
   }
   
-  public double inCentimetersPerSecond() {
-    // Calculate the speed in centimeters per second, and return it.
+  public double inCentimetersPerMillisecond() {
+    // Calculate the speed in centimeters per millisecond, and return it.
   }
   
   ```
 When this is done, you should be able to test it as described above.
 
 **Todo: Check the link and extension are correct.**
-**Todo: Perhaps this requires an intermediary project.**
 
-A solution can be found [here](code/complete.zip).
+A solution can be found [here](code/windspeed_simple.md).
 
 ## Measurement units
 
-Currently, the program we have created will measure the wind speed in **cm** per **second**; however, this is not particularly useful. A more practical unit would be **km** per **hour**. 
+Currently, the program we have created will measure the wind speed in **cm** per **millisecond**; however, this is not a particularly useful measurement. A more practical unit would be **km** per **hour**. 
 
-It's a good idea to set up constants to store the values of the number of seconds in an hour, and the number of centimetres in a kilometre. This will make our calculations less confusing for other people to understand:
+It's a good idea to set up constants to store the values of the number of milliseconds in an hour, and the number of centimetres in a kilometre. This will make our calculations less confusing for other people to understand:
 
 ```java
-public static final double CM_IN_A_KM = 100000.0;
-public static final double SECS_IN_AN_HOUR = 3600.0;
+public static final double CM_IN_A_KM = 100 * 1000;
+public static final double MILLIS_IN_AN_HOUR = 1000 * 60 * 60;
 ```
 
 In order to convert our units we'll need to:
 
 - Convert cm -> km by **dividing** the distance by the number of cm in 1km
-- Convert seconds -> hours by **multiplying** the speed by the number of seconds in 1 hour
+- Convert milliseconds -> hours by **multiplying** the speed by the number of seconds in 1 hour
 
 
 Create a new method, *inKilometersPerHour*, that will use these new calculations.
@@ -171,14 +170,5 @@ Your final code should now look something like [this](code/complete.zip).
 
 ## Summary
 
-**Todo: Not sure what the first question is asking. Sounds like a different wording to the second question.**
 - You have created a program which uses the anemometer to measure wind speed. What kind of location would be most suitable for this device? 
-- What factors should be considered when choosing a place for your anemometer outside? 
-
-## What next
-
-Now that you have a working anemometer program, there are some other things you could do:
-
-- Test your anemometer with a wind source such as a fan to ensure it works consistently.
-**Todo: Not sure if worth introducing a continuous polling example to lesson 1. If not, we should remove the line below as it won't make sense.**
-- In this lesson we have used interrupts to manage the data coming from the sensor. Could you rewrite the program to use the continuous polling method we discussed in the rain gauge lesson?
+- What factors should be considered when choosing a place for your anemometer outside?
