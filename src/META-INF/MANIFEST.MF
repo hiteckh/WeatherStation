@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Class-Path: javax.json-api-1.0.jar jfreechart-1.0.19.jar jcommon-1.0.2
+ 3.jar servlet-api-2.5.jar jfreechart-1.0.19.jar jcommon-1.0.23.jar se
+ rvlet-api-2.5.jar jfreechart-1.0.19.jar jcommon-1.0.23.jar servlet-ap
+ i-2.5.jar jfreechart-1.0.19.jar jcommon-1.0.23.jar servlet-api-2.5.ja
+ r jfreechart-1.0.19.jar jcommon-1.0.23.jar servlet-api-2.5.jar jfreec
+ hart-1.0.19.jar jcommon-1.0.23.jar servlet-api-2.5.jar jfreechart-1.0
+ .19.jar jcommon-1.0.23.jar servlet-api-2.5.jar jfreechart-1.0.19.jar 
+ jcommon-1.0.23.jar servlet-api-2.5.jar jfreechart-1.0.19.jar jcommon-
+ 1.0.23.jar servlet-api-2.5.jar jfreechart-1.0.19.jar jcommon-1.0.23.j
+ ar servlet-api-2.5.jar jfreechart-1.0.19.jar jcommon-1.0.23.jar servl
+ et-api-2.5.jar jfreechart-1.0.19.jar jcommon-1.0.23.jar servlet-api-2
+ .5.jar jfreechart-1.0.19.jar jcommon-1.0.23.jar servlet-api-2.5.jar j
+ freechart-1.0.19.jar jcommon-1.0.23.jar servlet-api-2.5.jar jfreechar
+ t-1.0.19.jar jcommon-1.0.23.jar servlet-api-2.5.jar pi4j-core-1.1.jar
+Main-Class: 
+
