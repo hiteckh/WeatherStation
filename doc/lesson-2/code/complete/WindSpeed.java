@@ -7,6 +7,16 @@
  */
 public class WindSpeed {
     /**
+     * The number of centimeters in a kilometer.
+     */
+    public static final double CM_IN_A_KM = 100 * 1000;
+    
+    /**
+     * The number of seconds in an hour.
+     */
+    public static final double MILLIS_IN_AN_HOUR = 1000 * 60 * 60;
+    
+    /**
      * The radius of the anemometer, in cm.
      */
     public static final double CIRCLE_RADIUS_CM = 9;
@@ -16,8 +26,8 @@ public class WindSpeed {
      */
     public static final double CALIBRATION_FACTOR = 1.18;
     
-    /** The internal distance value in kilometers.*/
-    private final double kilometers;
+    /** The internal distance value in centimeters.*/
+    private final double cm;
 
     /** The internal time value in milliseconds.*/
     private final long timeMillis;
@@ -34,27 +44,36 @@ public class WindSpeed {
      * @param timeMillis the time period that the revolutions value was measured
      * over
      */
-    public WindSpeed(final int halfRevolutions,
-            final long timeMillis) {
+    public WindSpeed(int halfRevolutions, long timeMillis) {
 
         this.timeMillis = timeMillis;
         
         double revolutions = halfRevolutions / 2f;
 
         // 2πr
-        final double circleCircumferenceCm = 2 * Math.PI * CIRCLE_RADIUS_CM;
+        double circleCircumferenceCm = 2 * Math.PI * CIRCLE_RADIUS_CM;
 
-        kilometers = CALIBRATION_FACTOR * circleCircumferenceCm * revolutions / 100000f;
+        cm = CALIBRATION_FACTOR * circleCircumferenceCm * revolutions;
+    }
+    
+    /**
+     * A method for getting the wind speed value as represented in centimeters per millisecond.
+     * 
+     * @return The wind speed measured in centimeters per millisecond.
+     */
+    public double inCentimetersPerMillisecond() {
+        return cm / timeMillis;
     }
 
     /**
      * A method for getting the wind speed value as represented in kilometers
      * per hour.
      *
-     * @return The wind speed measured in kilometers per hour
-     * @see WindSpeedSensor
+     * @return The wind speed measured in kilometers per hour.
      */
     public double inKilometersPerHour() {
-        return kilometers / (timeMillis / (1000 * 60 * 60));
+        double kilometers = cm / CM_IN_A_KM;
+        double hours = timeMillis / MILLIS_IN_AN_HOUR;
+        return kilometers / hours;
     }
 }

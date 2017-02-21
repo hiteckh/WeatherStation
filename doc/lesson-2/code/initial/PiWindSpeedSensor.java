@@ -45,7 +45,7 @@ public class PiWindSpeedSensor implements AnemometerListener {
         while(true) {
             Thread.sleep(millis);
             WindSpeed speed = sensor.getWindSpeed();
-            System.out.println(speed.inKilometersPerHour());
+            System.out.println(speed.inHalfRevolutions());
         }
     }
 }

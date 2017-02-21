@@ -20,15 +20,12 @@ public class WindSpeed {
             final long timeMillis) {
         this.halfRevolutions = halfRevolutions;
     }
-
+    
     /**
-     * A method for getting the wind speed value as represented in kilometers
-     * per hour.
-     *
-     * @return The wind speed measured in kilometers per hour
-     * @see WindSpeedSensor
+     * A method for getting the number of half revolutions that were recorded
+     * in this wind speed.
      */
-    public double inKilometersPerHour() {
+    public double inHalfRevolutions() {
         return halfRevolutions;
     }
 }
