@@ -1,6 +1,5 @@
 *.class
 *.ctxt
-*.bluej
 /.idea/
 /out
 /lib
