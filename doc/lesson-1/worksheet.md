@@ -37,8 +37,7 @@ For the purposes of this worksheet, we will focus on using interrupts, i.e. tell
 
 Make sure your rain gauge is connected to your Weather Station, then turn it on.
 
-**Todo: writeup for opening a BlueJ project with GPIO access on the Pi.**
-
+1. Open the BlueJ project found [here](https://bluej.org/raspberrypi/WeatherStation/lesson-1/initial.jar).
 1. Open the PiRainSensor class.
 
 We will need to store the size of the bucket as a constant (hence the capitals), and a counter for how many times the bucket has tipped.
@@ -85,8 +84,7 @@ Then we can add a *getRainfall* method so we can ask for the total rainfall sinc
   }
   ```
 
-**Todo: Check the link and extension are correct.**
-The complete code can be found [here](code/finished.zip).
+The complete code can be found [here](https://bluej.org/raspberrypi/WeatherStation/lesson-1/complete.jar).
 
 ## Summary
 

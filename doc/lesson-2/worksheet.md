@@ -20,7 +20,7 @@ So let's start collecting data from the sensor!
 
 ## Setup
 
-**Todo: writeup for opening a BlueJ project with GPIO access on the Pi.**
+Open the BlueJ project found [here](https://bluej.org/raspberrypi/WeatherStation/lesson-1/initial.jar).
 
 Because the anemometer measures wind speed, we need to deal with time.
 To keep things simple, the *PiWindSpeedSensor* class is given a time when it is first created, and then presumes that it's been that long since it was last called.
@@ -30,8 +30,6 @@ To keep things simple, the *PiWindSpeedSensor* class is given a time when it is 
 First, you need to be able to count the signals coming from the anemometer.
 Open the *PiWindSpeedSensor* class.
 This code is the same as lesson 1, in that you will need a counter, and you will need to increment the counter in the *onTriggered* method.
-
-**Todo: Does this need a working code example?**
 
 ## Getting the wind speed
 
@@ -118,8 +116,6 @@ Once we have this, we can calculate the speed in centimeters per millisecond. Ov
   ```
 When this is done, you should be able to test it as described above.
 
-**Todo: Check the link and extension are correct.**
-
 A solution can be found [here](code/windspeed_simple.md).
 
 ## Measurement units
@@ -163,8 +159,7 @@ The [datasheet](https://www.argentdata.com/files/80422_datasheet.pdf) says that 
   public static final double CALIBRATION_FACTOR = 1.18;
   ```
 
-**Todo: Check the link and extension are correct.**
-Your final code should now look something like [this](code/complete.zip).
+Your final code should now look something like [this](https://bluej.org/raspberrypi/WeatherStation/complete.zip).
 
 1. Re-run the code and this time you should get a value closer to 2.4:
 
