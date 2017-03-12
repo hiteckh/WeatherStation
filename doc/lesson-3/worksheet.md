@@ -152,8 +152,6 @@ Inside the *getGust* method, we need to do the following:
   }
   ```
 
-**Todo: Point this towards some markdown containing the complete method.**
-
 You can check your code against a completed version [here](https://bluej.org/raspberrypi/WeatherStation/lesson-3/complete.jar).
 
 Run and test your program. If you're testing it indoors by pushing the anemometer by hand, what issues do you think might occur which might make it difficult to test your code?
