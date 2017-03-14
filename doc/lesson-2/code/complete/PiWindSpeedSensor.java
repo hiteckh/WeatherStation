@@ -29,7 +29,7 @@ public class PiWindSpeedSensor implements AnemometerListener {
      * @return The wind speed.
      */
     public WindSpeed getWindSpeed() {
-        WindSpeed speed = new WindSpeed(count/2, intervalMillis);
+        WindSpeed speed = new WindSpeed(count, intervalMillis);
         count = 0;
         return speed;
     }
