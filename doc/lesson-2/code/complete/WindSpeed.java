@@ -12,7 +12,7 @@ public class WindSpeed {
     public static final double CM_IN_A_KM = 100 * 1000;
     
     /**
-     * The number of seconds in an hour.
+     * The number of milliseconds in an hour.
      */
     public static final double MILLIS_IN_AN_HOUR = 1000 * 60 * 60;
     
