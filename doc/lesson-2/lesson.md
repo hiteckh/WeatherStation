@@ -86,7 +86,7 @@ public void onTriggered() {
 
 
 Discuss with students how they will turn the count of signals received from the sensor into a wind speed.
-Share or co-devise with pupils an outline of code in a pseudocode style which students can refer to (there's an example in the [Anemometer guide](../guides/wind_speed.md)).
+Share or co-devise with pupils an outline of code in a pseudocode style which students can refer to (there's an example in the [anemometer guide](../guides/wind_speed.md)).
 Students should then implement the planned code in Java and test it (code should go in the *WindSpeed* class).
 
 
