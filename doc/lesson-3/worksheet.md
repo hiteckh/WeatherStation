@@ -65,8 +65,6 @@ The code you need in order to make the program sleep for 5 seconds will be:
   Thread.sleep(INTERVAL_MILLIS);
   ```
 
-**Todo: Point this towards some markdown containing the complete method.**
-
 Once you're done, you can check your answer with the solution [here](code/getReadings_complete.md)
 
 You can test this by compiling, creating a new *GustDetector* object, and calling *getReadings*.
