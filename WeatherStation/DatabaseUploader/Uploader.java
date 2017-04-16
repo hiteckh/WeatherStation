@@ -35,7 +35,11 @@ public class Uploader extends Thread {
      public void run () {
          while (true) {
              // Run an upload
-             doUpload();
+             try {
+                doUpload();
+             } catch (CloudError e) {
+                 //LOG.log (Level.SEVERE, "Error uploading to cloud: {0}", e.getMessage ());
+             }
 
              try {
                  // Wait for an hour before trying it again
