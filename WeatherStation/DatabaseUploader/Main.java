@@ -1,7 +1,7 @@
 package org.kentuni.WeatherStation.DatabaseUploader;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String filename = "";
         try {
             filename = args[0];
@@ -10,7 +10,7 @@ public class Main {
             return;
         }
 
-        final Thread uploader = new Uploader(new Config("databases.config"));
+        final Thread uploader = new Uploader(new Config(filename));
         uploader.start();
     }
 
