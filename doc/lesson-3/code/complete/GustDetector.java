@@ -8,23 +8,23 @@ public class GustDetector {
     /**
      * How often to check the wind speed.
      */
-    private static final int INTERVAL_MILLIS = 5000;
+    public static final int INTERVAL_MILLIS = 5000;
 
     /**
      * How many times to check the wind speed when asked for a reading.
      */
-    private static final int ITERATIONS = 4;
+    public static final int ITERATIONS = 4;
 
     /**
      * The minimum speed, in kilometers per hour, of a gust.
      */
-    private static final double GUST_ABOVE_KM_H = 29.6;
+    public static final double GUST_ABOVE_KM_H = 29.6;
 
     /**
      * The minimum difference in speed, in kilometers per hour,
      * between the lowest speed and the highest speed in a gust.
      */
-    private static final double GUST_RANGE_KM_H = 16.7;
+    public static final double GUST_RANGE_KM_H = 16.7;
 
     /**
      * The sensor to use.

@@ -14,7 +14,7 @@ To measure the wind gust speed we will also use the anemometer, the same instrum
 
 ## Getting started
 
-**Todo: Writeup for opening a BlueJ project with GPIO access on the Pi.**
+Open the BlueJ project found [here](https://bluej.org/raspberrypi/WeatherStation/lesson-3/initial.jar).
 
 ## Storing wind speed readings
 
@@ -23,14 +23,12 @@ In this exercise, we will be using the WindSpeed class we created in the last le
 To start, open the GustDetector class.
 We need to check the wind speed every 5 seconds (5000 milliseconds) for 20 seconds, so 4 times. We should store these as constants at the top of the class:
 
-**Todo: Use private or public consistently for constants throughout all lessons.
-The wording of a constant is already a mouthful, so we should keep it as simple as possible.**
 
   ```java
-  private static final int INTERVAL_MILLIS = 5000;
-  private static final int ITERATIONS = 4;
+  public static final int INTERVAL_MILLIS = 5000;
+  public static final int ITERATIONS = 4;
   ```
-  
+
 We will also need access to a wind sensor, so we should store one as a field and create it in the constructor:
 
   ```java
@@ -66,8 +64,6 @@ The code you need in order to make the program sleep for 5 seconds will be:
   ```java
   Thread.sleep(INTERVAL_MILLIS);
   ```
-
-**Todo: Point this towards some markdown containing the complete method.**
 
 Once you're done, you can check your answer with the solution [here](code/getReadings_complete.md)
 
@@ -127,12 +123,10 @@ Now that we have a well-defined logical way of testing whether a gust has occurr
 First, we need to create some constants for the minimum required wind speed for a gust, and the range between the highest and lowest speeds required for a gust:
 
   ```java
-  private static final double GUST_ABOVE_KM_H = 29.6;
-  private static final double GUST_RANGE_KM_H = 16.7;
+  public static final double GUST_ABOVE_KM_H = 29.6;
+  public static final double GUST_RANGE_KM_H = 16.7;
   ```
 
-**Todo: Might be too difficult for students.
-Not sure how to make it easier without providing min/max methods for them to use instead of calculating themselves.**
 
 Inside the *getGust* method, we need to do the following:
 
@@ -156,9 +150,7 @@ Inside the *getGust* method, we need to do the following:
   }
   ```
 
-**Todo: Point this towards some markdown containing the complete method.**
-
-You can check your code against a completed version [here](code/getGust_complete.md).
+You can check your code against a completed version [here](https://bluej.org/raspberrypi/WeatherStation/lesson-3/complete.jar).
 
 Run and test your program. If you're testing it indoors by pushing the anemometer by hand, what issues do you think might occur which might make it difficult to test your code?
 
