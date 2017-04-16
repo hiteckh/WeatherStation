@@ -21,7 +21,7 @@ class PiAmbientTemperatureSensor implements TemperatureSensor {
 
     public Temperature getTemperature() throws SensorError {
         try {
-            return new Temperature(this.sensor.read().getTemperature());
+            return new Temperature(Temperature.TemperatureUnit.CELSIUS, this.sensor.read().getTemperature());
         } catch (Exception e) {
             throw new SensorError(e);
         }

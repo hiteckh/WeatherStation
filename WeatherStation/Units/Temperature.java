@@ -25,13 +25,29 @@ public class Temperature {
     /** The internal temperature value in kelvin.*/
     private final double rawTemperature;
 
+    /** An enum to represent the provided unit in the constructor */
+    public static enum TemperatureUnit {KELVIN, CELSIUS, FAHRENHEIT};
+
     /**
      * The sole constructor for a {@link Temperature} object.
      *
-     * @param kelvin the temperature value in kelvin
+     * @param u the unit of temperature for the constructor
+     * @param t the temperature value in the unit provided
      */
-    public Temperature(final double kelvin) {
-        this.rawTemperature = kelvin;
+    public Temperature(final TemperatureUnit u, final double t) {
+        switch (u) {
+            case KELVIN:
+                this.rawTemperature = t;
+                break;
+            case CELSIUS:
+                this.rawTemperature = t - Temperature.CELSIUS_OFFSET;
+                break;
+            case FAHRENHEIT:
+                this.rawTemperature = (t - Temperature.FAHRENHEIT_OFFSET) / Temperature.FAHRENHEIT_COEFFICIENT;
+                break;
+            default:
+                this.rawTemperature = t; // Do what we can
+        }
     }
 
     /**

@@ -23,7 +23,7 @@ public class MockTemperatureSensor implements TemperatureSensor {
     }
 
     public Temperature getTemperature() {
-        return new Temperature(this.rawTemperature);
+        return new Temperature(Temperature.TemperatureUnit.KELVIN, this.rawTemperature);
     }
 
 }
