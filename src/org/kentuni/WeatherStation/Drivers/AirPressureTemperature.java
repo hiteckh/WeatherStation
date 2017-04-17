@@ -21,7 +21,7 @@ public class AirPressureTemperature {
 
     public synchronized static AirPressureTemperature getInstance() {
         if (AirPressureTemperature.INSTANCE == null) {
-            new AirPressureTemperature();
+            INSTANCE = new AirPressureTemperature();
         }
 
         return AirPressureTemperature.INSTANCE;
