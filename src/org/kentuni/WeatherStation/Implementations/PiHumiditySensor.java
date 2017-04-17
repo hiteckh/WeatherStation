@@ -21,7 +21,7 @@ class PiHumiditySensor implements HumiditySensor {
 
     public Humidity getHumidity() throws SensorError {
         try {
-            return new Humidity(this.sensor.read().getHumidity());
+            return new Humidity(this.sensor.read().getHumidity()/100);
         } catch (Exception e) {
             throw new SensorError(e);
         }
