@@ -18,7 +18,7 @@ public final class Anemometer {
 		return INSTANCE;
 	}
 
-	private static Pin PIN_ANEMOMETER = RaspiBcmPin.GPIO_05;
+	private static Pin PIN_ANEMOMETER = RaspiBcmPin.GPIO_21;
 
 	private final GpioPinDigitalInput GPIO_PIN_ANEMOMETER;
 
