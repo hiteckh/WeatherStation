@@ -45,6 +45,6 @@ public class WindSpeed {
      * @see WindSpeedSensor
      */
     public double inKilometersPerHour() {
-        return kilometers / (timeMillis / 1000);
+        return (kilometers * (60*60*1000)) / timeMillis;
     }
 }

@@ -57,11 +57,12 @@ public class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
         // The amount of time that's passed since something last asked for the wind speed, in milliseconds.
         final long timePassedMillis = currentTimeMillis - lastCollectionTimeMillis;
 
-        resetCounter();
-
         // Creates a new WindSpeed object, letting it know how many rotations have occurred, the circle radius,
         // and how long we've been counting, in milliseconds.
-        return new WindSpeed(count / 2, CIRCLE_RADIUS_CM, CALIBRATION_FACTOR, timePassedMillis);
+        WindSpeed rtn = new WindSpeed(count / 2, CIRCLE_RADIUS_CM, CALIBRATION_FACTOR, timePassedMillis);
+        resetCounter();
+
+        return rtn;
     }
 
     /**
