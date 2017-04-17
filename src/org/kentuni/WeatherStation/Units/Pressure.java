@@ -22,10 +22,10 @@ public class Pressure {
     /**
      * The sole constructor for a {@link Pressure} object.
      *
-     * @param atmospheres the pressure value in atmospheres
+     * @param pascals the pressure value in pascals
      */
-    public Pressure(final double atmospheres) {
-        this.rawPressure = atmospheres;
+    public Pressure(final double pascals) {
+        this.rawPressure = (pascals/100)/Pressure.MILLIBAR_COEFFICIENT;
     }
 
     /**
