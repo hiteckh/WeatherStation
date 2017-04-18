@@ -1,3 +1,3 @@
 .PHONY: compile-all
 compile-all:
-	find WeatherStation/ -name "*.java" | xargs javac -classpath .:classes:+libs/'*':WeatherStation
+	find src/ -name "*.java" | xargs javac -classpath .:classes:+libs/'*':WeatherStation
