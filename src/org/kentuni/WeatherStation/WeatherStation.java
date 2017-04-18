@@ -9,7 +9,7 @@ import org.kentuni.WeatherStation.Implementations.Platform;
  *
  * @author  Joe Reid
  */
-public class SimpleWeatherStation {
+public class WeatherStation {
     /**{@link HumiditySensor} instance built for the weather station.*/
     private final HumiditySensor humiditySensor;
 
@@ -23,11 +23,11 @@ public class SimpleWeatherStation {
     private final WindSpeedSensor windSpeedSensor;
 
     /**
-     * The sole constructor for a {@link SimpleWeatherStation} object.
+     * The sole constructor for a {@link WeatherStation} object.
      * The constructor builds the object for the correct platform and provides
      * simple methods to access live sensor values.
      */
-    public SimpleWeatherStation() {
+    public WeatherStation() {
         // set up a sensor factory for this platform
         Factory wsFactory = new Factory(Platform.WEATHERSTATION_V1);
 
@@ -45,7 +45,7 @@ public class SimpleWeatherStation {
      * @return The current humidity in percent
      * @see HumiditySensor
      */
-    public final double getPercentHumidity() throws SensorError {
+    public final double getHumidity() throws SensorError {
         return this.humiditySensor.getHumidity().inPercent();
     }
 
@@ -56,7 +56,7 @@ public class SimpleWeatherStation {
      * @return The current pressure in millibars
      * @see PressureSensor
      */
-    public final double getMillibarPressure() {
+    public final double getPressure() {
         return this.pressureSensor.getPressure().inMillibars();
     }
 
@@ -67,7 +67,7 @@ public class SimpleWeatherStation {
      * @return The current temperature in celsius
      * @see TemperatureSensor
      */
-    public final double getCelsiusAmbientTemperature() throws SensorError {
+    public final double getAmbientTemperature() throws SensorError {
         return this.ambientTemperatureSensor.getTemperature().inCelsius();
     }
 
@@ -78,7 +78,7 @@ public class SimpleWeatherStation {
      * @return The current wind speed in kilometers per hour
      * @see WindSpeedSensor
      */
-    public final double getKilometersPerHourWindSpeed() {
+    public final double getWindSpeed() {
         return this.windSpeedSensor.getWindSpeed().inKilometersPerHour();
     }
 }
