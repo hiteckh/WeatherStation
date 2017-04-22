@@ -1,5 +1,7 @@
 package org.bluej.WeatherStation.Units;
 
+import org.bluej.WeatherStation.Sensors.WindSpeedSensor;
+
 /**
  * A class for representing a wind speed value to be returned by a {@link
  * WindSpeedSensor}.
@@ -22,7 +24,7 @@ public class WindSpeed {
      *
      * @param circleRadiusCm the radius of the arc drawn by the arms of the
      * wind speed sensor hardware.
-     *
+     * @param calibrationFactor A multiplier used to correct for friction, etc.
      * @param timeMillis the time period that the revolutions value was measured
      * over
      */

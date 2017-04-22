@@ -1,5 +1,7 @@
 package org.bluej.WeatherStation.Units;
 
+import org.bluej.WeatherStation.Sensors.PressureSensor;
+
 /**
  * A class for representing a pressure value to be returned by a {@link
  * PressureSensor}.

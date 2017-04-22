@@ -44,6 +44,7 @@ public class WeatherStation {
      *
      * @return The current humidity in percent
      * @see HumiditySensor
+     * @throws SensorError Thrown when we can't read reliably from the sensor, for whatever reason.
      */
     public final double getHumidity() throws SensorError {
         return this.humiditySensor.getHumidity().inPercent();
@@ -66,6 +67,7 @@ public class WeatherStation {
      *
      * @return The current temperature in celsius
      * @see TemperatureSensor
+     * @throws SensorError Thrown when we can't read reliably from the sensor, for whatever reason.
      */
     public final double getAmbientTemperature() throws SensorError {
         return this.ambientTemperatureSensor.getTemperature().inCelsius();

@@ -1,5 +1,7 @@
 package org.bluej.WeatherStation.Units;
 
+import org.bluej.WeatherStation.Sensors.HumiditySensor;
+
 /**
  * A class for representing a humidity value to be returned by a {@link
  * HumiditySensor}.

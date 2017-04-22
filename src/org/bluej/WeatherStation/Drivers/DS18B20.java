@@ -33,6 +33,7 @@ public class DS18B20 {
     /**
      * This is the constructor for the {@code DS18B20} class. It takes no
      * parameters as the files and parameters are fixed.
+     * @throws IOException Thrown when we can't communicate with the hardware.
      */
     public DS18B20 () throws IOException
     {

@@ -14,6 +14,7 @@ public class RainFall {
 
     /**
      * Gives the amount of rainfall, in mm.
+     * @return The amount of rainfall, in millimeters.
      */
     public double inMM() {
         return mm;

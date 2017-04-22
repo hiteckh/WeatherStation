@@ -1,5 +1,7 @@
 package org.bluej.WeatherStation.Units;
 
+import org.bluej.WeatherStation.Sensors.TemperatureSensor;
+
 /**
  * A class for representing a temperature value to be returned by a {@link
  * TemperatureSensor}.

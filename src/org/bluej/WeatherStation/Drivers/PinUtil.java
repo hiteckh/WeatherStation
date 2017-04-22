@@ -24,6 +24,7 @@ public final class PinUtil {
 	/**
 	 * Wraps a call to get the GPIO controller instance so that we can give a nicer error message than an
 	 * UnsatisfiedLinkError.
+	 * @return GpioController.
 	 */
 	public static synchronized GpioController getController() {
 		try {
@@ -36,6 +37,7 @@ public final class PinUtil {
     /**
      * Wraps a call to get an I2C bus instance so that we can give a nicer error message.
      * @param busNumber The number of the bus we want to grab.
+	 * @return An I2CBus.
      */
 	public static synchronized I2CBus getI2CBus(final int busNumber) {
 	    try {
