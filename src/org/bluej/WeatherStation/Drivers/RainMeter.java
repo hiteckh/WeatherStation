@@ -36,7 +36,10 @@ public final class RainMeter {
      * @param listener The listener to add.
      */
 	public void addListener(final RainMeterListener listener) {
-	    GPIO_PIN_RAIN_SENSOR.addListener((GpioPinListenerDigital) event -> listener.onTriggered());
+	    GPIO_PIN_RAIN_SENSOR.addListener((GpioPinListenerDigital) event -> {
+			if(event.getState() == PinState.LOW)
+				listener.onTriggered();
+		});
     }
 
 
