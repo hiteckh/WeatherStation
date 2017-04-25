@@ -36,7 +36,10 @@ public final class Anemometer {
 	 * @param listener The listener to add.
 	 */
 	public void addListener(final AnemometerListener listener) {
-		GPIO_PIN_ANEMOMETER.addListener((GpioPinListenerDigital) event -> listener.onTriggered());
+		GPIO_PIN_ANEMOMETER.addListener((GpioPinListenerDigital) event -> {
+			if(event.getState() == PinState.LOW)
+				listener.onTriggered();
+		});
 	}
 }
 
