@@ -18,7 +18,7 @@ public final class RainMeter {
         return INSTANCE;
     }
 
-    private static Pin PIN_RAIN_SENSOR = RaspiBcmPin.GPIO_06;
+    private static Pin PIN_RAIN_SENSOR = RaspiBcmPin.GPIO_22;
 
     private final GpioPinDigitalInput GPIO_PIN_RAIN_SENSOR;
 
