@@ -37,7 +37,7 @@ public final class Anemometer {
 	 */
 	public void addListener(final AnemometerListener listener) {
 		GPIO_PIN_ANEMOMETER.addListener((GpioPinListenerDigital) event -> {
-			if(event.getState() == PinState.HIGH)
+			if(event.getState() == PinState.LOW)
 				listener.onTriggered();
 		});
 	}
