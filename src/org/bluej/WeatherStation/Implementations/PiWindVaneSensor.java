@@ -1,13 +1,13 @@
 package org.bluej.WeatherStation.Implementations;
 
 import org.bluej.WeatherStation.Drivers.MCP3427;
-import org.bluej.WeatherStation.Sensors.WindVane;
+import org.bluej.WeatherStation.Sensors.WindVaneSensor;
 import org.bluej.WeatherStation.Units.WindDirection;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-public final class PiWindVane implements WindVane {
+public final class PiWindVaneSensor implements WindVaneSensor {
 
 	private static final int BUS_NUM = 1;
 	private static final int ADDRESS = 0x69;
@@ -25,7 +25,7 @@ public final class PiWindVane implements WindVane {
 
 	private final MCP3427 driver;
 
-	public PiWindVane() throws IOException {
+	public PiWindVaneSensor() throws IOException {
 		driver = getDriver();
 	}
 
@@ -101,7 +101,7 @@ enum Direction implements Comparable<Direction> {
 
 	Direction(final double angle, final int ohms) {
 		this.angle = angle;
-		final double vOut = (int) PiWindVane.V_IN * ohms / (PiWindVane.V_DIVIDER + ohms);
+		final double vOut = (int) PiWindVaneSensor.V_IN * ohms / (PiWindVaneSensor.V_DIVIDER + ohms);
 		this.adc = (int) (vOut * MCP3427.MAX / MCP3427.VREF);
 	}
 }

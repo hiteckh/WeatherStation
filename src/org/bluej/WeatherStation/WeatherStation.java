@@ -3,6 +3,7 @@ package org.bluej.WeatherStation;
 import org.bluej.WeatherStation.Sensors.*;
 import org.bluej.WeatherStation.Implementations.Factory;
 import org.bluej.WeatherStation.Implementations.Platform;
+import org.bluej.WeatherStation.Units.WindDirection;
 
 /**
  * A class providing a high level interface to a weather station device.
@@ -22,6 +23,9 @@ public class WeatherStation {
     /**{@link WindSpeedSensor} instance built for the weather station.*/
     private final WindSpeedSensor windSpeedSensor;
 
+    /**{@link WindVaneSensor} instance built for the weather station.*/
+    private final WindVaneSensor windVaneSensor;
+
     /**
      * The sole constructor for a {@link WeatherStation} object.
      * The constructor builds the object for the correct platform and provides
@@ -36,6 +40,7 @@ public class WeatherStation {
         this.pressureSensor = wsFactory.getPressureSensor();
         this.ambientTemperatureSensor = wsFactory.getAmbientTemperatureSensor();
         this.windSpeedSensor = wsFactory.getWindSpeedSensor();
+        this.windVaneSensor = wsFactory.getWindVaneSensor();
     }
 
     /**
@@ -82,6 +87,17 @@ public class WeatherStation {
      */
     public final double getWindSpeed() {
         return this.windSpeedSensor.getWindSpeed().inKilometersPerHour();
+    }
+
+    /**
+     * This method returns the most up to date sensor data from the internal
+     * {@link WindVaneSensor} in degrees.
+     *
+     * @return THe current wind direction, in degrees.
+     * @see WindVaneSensor
+     */
+    public final double getWindDirection() {
+        return windVaneSensor.getWindDirection().getDegrees();
     }
 }
 

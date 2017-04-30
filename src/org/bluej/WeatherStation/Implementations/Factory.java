@@ -32,6 +32,12 @@ public class Factory {
     private final WindSpeedSensor windSpeedSensor;
 
     /**
+     * {@link WindVaneSensor} instance built for the {@link Platform} supplied
+     * to the constructor.
+     */
+    private final WindVaneSensor windVaneSensor;
+
+    /**
      * The sole constructor for a {@link Factory} object.
      * The platform argument must specify which {@link Platform} target they
      * wish the {@link Factory} to build for.
@@ -56,6 +62,7 @@ public class Factory {
                     this.pressureSensor = new PiPressureSensor();
                     this.ambientTemperatureSensor = new PiAmbientTemperatureSensor();
                     this.windSpeedSensor = new PiWindSpeedSensor();
+                    this.windVaneSensor = new PiWindVaneSensor();
                 } catch (Exception e) {
                     throw new UnsupportedOperationException(
                         "The provided platform is supported but failed to "
@@ -69,6 +76,7 @@ public class Factory {
                 this.pressureSensor = new MockPressureSensor();
                 this.ambientTemperatureSensor = new MockTemperatureSensor();
                 this.windSpeedSensor = new MockWindSpeedSensor();
+                this.windVaneSensor = new MockWindVaneSensor();
                 break;
 
             default:
@@ -79,10 +87,10 @@ public class Factory {
     }
 
     /**
-     * A getter method for the {@link HumiditySensor} apropriate for the
+     * A getter method for the {@link HumiditySensor} appropriate for the
      * {@link Platform} the {@link Factory} instance was constructed with.
      *
-     * @return The {@link HumiditySensor} apropriate for the {@link Platform}
+     * @return The {@link HumiditySensor} appropriate for the {@link Platform}
      * the {@link Factory} instance was constructed with.
      *
      * @see HumiditySensor
@@ -92,10 +100,10 @@ public class Factory {
     }
 
     /**
-     * A getter method for the {@link PressureSensor} apropriate for the
+     * A getter method for the {@link PressureSensor} appropriate for the
      * {@link Platform} the {@link Factory} instance was constructed with.
      *
-     * @return The {@link PressureSensor} apropriate for the {@link Platform}
+     * @return The {@link PressureSensor} appropriate for the {@link Platform}
      * the {@link Factory} instance was constructed with.
      *
      * @see PressureSensor
@@ -105,10 +113,10 @@ public class Factory {
     }
 
     /**
-     * A getter method for the {@link TemperatureSensor} apropriate for the
+     * A getter method for the {@link TemperatureSensor} appropriate for the
      * {@link Platform} the {@link Factory} instance was constructed with.
      *
-     * @return The {@link TemperatureSensor} apropriate for the {@link Platform}
+     * @return The {@link TemperatureSensor} appropriate for the {@link Platform}
      * the {@link Factory} instance was constructed with.
      *
      * @see TemperatureSensor
@@ -118,16 +126,29 @@ public class Factory {
     }
 
     /**
-     * A getter method for the {@link windSpeedSensor} apropriate for the
+     * A getter method for the {@link WindSpeedSensor} appropriate for the
      * {@link Platform} the {@link Factory} instance was constructed with.
      *
-     * @return The {@link WindSpeedSensor} apropriate for the {@link Platform}
+     * @return The {@link WindSpeedSensor} appopriate for the {@link Platform}
      * the {@link Factory} instance was constructed with.
      *
      * @see WindSpeedSensor
      */
     public final WindSpeedSensor getWindSpeedSensor() {
         return this.windSpeedSensor;
+    }
+
+    /**
+     * A getter method for the {@link WindVaneSensor} appropriate for the
+     * {@link Platform} the {@link Factory} instance was constructed with.
+     * 
+     * @return The {@link WindSpeedSensor} appropriate for the {@link Platform}
+     * the {@link Factory} instance was constructed with.
+     * 
+     * @see WindVaneSensor
+     */
+    public final WindVaneSensor getWindVaneSensor() {
+        return this.windVaneSensor;
     }
 
 }

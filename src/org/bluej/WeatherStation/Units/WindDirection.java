@@ -6,6 +6,8 @@ public class WindDirection {
 
     private final Compass compassDirection;
 
+
+
     public WindDirection(final double degrees) {
         this.degrees = degrees;
 
@@ -27,6 +29,14 @@ public class WindDirection {
             compassDirection = Compass.NORTH_WEST;
         }
 
+    }
+
+    public double getDegrees() {
+        return degrees;
+    }
+
+    public Compass getCompassDirection() {
+        return compassDirection;
     }
 
     public enum Compass {
