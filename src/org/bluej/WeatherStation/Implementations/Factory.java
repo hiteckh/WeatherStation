@@ -2,6 +2,7 @@ package org.bluej.WeatherStation.Implementations;
 
 import org.bluej.WeatherStation.Sensors.*;
 import org.bluej.WeatherStation.MockSensors.*;
+import org.bluej.WeatherStation.Units.AirQuality;
 
 
 /**
@@ -38,6 +39,12 @@ public class Factory {
     private final WindVaneSensor windVaneSensor;
 
     /**
+     * {@link AirQualitySensor} instance built for the {@link Platform} supplied
+     * to the constructor.
+     */
+    private final AirQualitySensor airQualitySensor;
+
+    /**
      * The sole constructor for a {@link Factory} object.
      * The platform argument must specify which {@link Platform} target they
      * wish the {@link Factory} to build for.
@@ -63,6 +70,7 @@ public class Factory {
                     this.ambientTemperatureSensor = new PiAmbientTemperatureSensor();
                     this.windSpeedSensor = new PiWindSpeedSensor();
                     this.windVaneSensor = new PiWindVaneSensor();
+                    this.airQualitySensor = new PiAirQualitySensor();
                 } catch (Exception e) {
                     throw new UnsupportedOperationException(
                         "The provided platform is supported but failed to "
@@ -77,6 +85,7 @@ public class Factory {
                 this.ambientTemperatureSensor = new MockTemperatureSensor();
                 this.windSpeedSensor = new MockWindSpeedSensor();
                 this.windVaneSensor = new MockWindVaneSensor();
+                this.airQualitySensor = new MockAirQualitySensor();
                 break;
 
             default:
@@ -149,6 +158,19 @@ public class Factory {
      */
     public final WindVaneSensor getWindVaneSensor() {
         return this.windVaneSensor;
+    }
+
+    /**
+     * A getter method for the {@link AirQualitySensor} appropriate for the
+     * {@link Platform} the {@link Factory} instance was constructed with.
+     *
+     * @return The {@link AirQualitySensor} appropriate for the {@link Platform}
+     * the {@link Factory} instance was constructed with.
+     *
+     * @see AirQualitySensor
+     */
+    public final AirQualitySensor getAirQualitySensor() {
+        return this.airQualitySensor;
     }
 
 }
