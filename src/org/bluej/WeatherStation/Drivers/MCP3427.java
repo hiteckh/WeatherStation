@@ -2,10 +2,9 @@ package org.bluej.WeatherStation.Drivers;
 
 import java.io.IOException;
 
-import java.util.logging.Logger;
-
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
+import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.wiringpi.Gpio;
 
 /**
@@ -15,22 +14,39 @@ import com.pi4j.wiringpi.Gpio;
  * @author Jim Darby
  */
 public class MCP3427 {
+
+    /** The delay we currently use for 12-bit readings, starts at the minimum */
+    private int delay12 = DELAY12_MIN;
+    /** The delay we currently use for 14-bit readings, starts at the minimum */
+    private int delay14 = DELAY14_MIN;
+    /** The delay we currently use for 16-bit readings, starts at the minimum */
+    private int delay16 = DELAY16_MIN;
+
+    /** The pi4j I2CDevice object we use to communicate with */
+    private final I2CDevice device;
+    /** The numeric device on the bus */
+    private final int dev_id;
+    /** The buffer area we use */
+    private final byte buffer[] = new byte[3];
+
     /**
      * Constructor for the MCP3227 device driver. Given a bus and  a device
      * address (the device can have more than one address), the number of bits to be
      * used (12, 14 or 16) and the gain to be applied to the input (1, 2, 4 or
      * 8) this constructs the device driver.
      *
-     * @param bus The {@code I2CBus} the device is on.
-     * @param dev The device address on the bus.
      * @throws IOException If communication on the I2C bus fails.
      */
-    public MCP3427 (I2CBus bus, int dev) throws IOException
-    {
-        dev_id = dev;
-        device = bus.getDevice (dev);
+    public MCP3427 (final int busNum, final int address) throws IOException {
+        final I2CBus bus;
+        try {
+            bus = I2CFactory.getInstance(busNum);
+        } catch (final I2CFactory.UnsupportedBusNumberException e) {
+            throw new IllegalStateException(e);
+        }
+        dev_id = address;
+        device = bus.getDevice (address);
         device.write (CMD_SINGLE_SHOT);
-        max_tries = 0 ;
     }
 
     /**
@@ -51,12 +67,12 @@ public class MCP3427 {
 
         // Add the channel to the command.
         switch (channel) {
-            case 1:
-                config |= CMD_CHAN_1;
+            case 0:
+                config |= CMD_CHAN_0;
                 break;
 
-            case 2:
-                config |= CMD_CHAN_2;
+            case 1:
+                config |= CMD_CHAN_1;
                 break;
 
             default:
@@ -113,7 +129,7 @@ public class MCP3427 {
         Gpio.delay(delay);
 
         boolean ok = false;
-        boolean on_first = false;
+        boolean onFirst = false;
 
         for (int tries = 0; tries < 10; ++tries) {
             if (device.read (buffer, 0, 3) != 3)
@@ -123,11 +139,7 @@ public class MCP3427 {
                 ok = true;
 
                 if (tries == 0)
-                    on_first = true;
-
-                if (tries > max_tries) {
-                    max_tries = tries;
-                }
+                    onFirst = true;
 
                 break;
             }
@@ -139,7 +151,7 @@ public class MCP3427 {
             throw new IOException ("MCP3427@" + Integer.toHexString(dev_id) + ": Conversion failed");
 
         // If we didn't get it on the first time, bump up the delay
-        if (!on_first) {
+        if (!onFirst) {
             switch (bits) {
                 case 12:
                     delay12 += 1;
@@ -167,21 +179,12 @@ public class MCP3427 {
     /** The reference voltage used */
     public static final double VREF = 2.048;
 
-    /** The pi4j I2CDevice object we use to communicate with */
-    private final I2CDevice device;
-    /** The numeric device on the bus */
-    private final int dev_id;
-    /** The buffer area we use */
-    private final byte buffer[] = new byte[3];
-    /** The maximum number of tries we have taken to get a reading */
-    private int max_tries;
-
     /** The incomplete command to start a single-shot conversion */
     private static final byte CMD_START       = (byte) 0x80;
     /** Run the conversion on channel 1 */
-    private static final byte CMD_CHAN_1      = (byte) 0x00;
+    private static final byte CMD_CHAN_0 = (byte) 0x00;
     /** Run the conversion on channel 2 */
-    private static final byte CMD_CHAN_2      = (byte) 0x20;
+    private static final byte CMD_CHAN_1 = (byte) 0x20;
     /** Perform a single shot conversion */
     private static final byte CMD_SINGLE_SHOT = (byte) 0x00;
     /** Convert with 12-bit accuracy */
@@ -215,11 +218,4 @@ public class MCP3427 {
     private static final int DELAY16_MIN = 1000 /  21 + 1;
     /** Maximum delay for a 16-bit sample. */
     private static final int DELAY16_MAX = 1000 /  11 + 1;
-
-    /** The delay we currently use for 12-bit readings, starts at the minimum */
-    private int delay12 = DELAY12_MIN;
-    /** The delay we currently use for 14-bit readings, starts at the minimum */
-    private int delay14 = DELAY14_MIN;
-    /** The delay we currently use for 16-bit readings, starts at the minimum */
-    private int delay16 = DELAY16_MIN;
 }

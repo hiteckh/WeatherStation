@@ -6,7 +6,7 @@ public class WindDirection {
 
     private final Compass compassDirection;
 
-    WindDirection(final double degrees) {
+    public WindDirection(final double degrees) {
         this.degrees = degrees;
 
         if (degrees >= 338 || degrees < 23) {
