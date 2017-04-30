@@ -4,5 +4,5 @@ import org.bluej.WeatherStation.Units.Humidity;
 import org.bluej.WeatherStation.Sensors.SensorError;
 
 public interface HumiditySensor {
-    public Humidity getHumidity() throws SensorError;
+    Humidity getHumidity() throws SensorError;
 }

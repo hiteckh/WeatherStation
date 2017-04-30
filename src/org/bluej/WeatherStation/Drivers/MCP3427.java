@@ -49,6 +49,10 @@ public class MCP3427 {
         device.write (CMD_SINGLE_SHOT);
     }
 
+    public int read() throws IOException {
+        return read(0, 16, 1);
+    }
+
     /**
      * Read the value of an analogue input. We normalise the value returned so
      * that the actual voltage is the returned value * VREF / 32768.

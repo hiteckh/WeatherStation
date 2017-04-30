@@ -46,7 +46,7 @@ public final class PiWindVane implements WindVane {
 	public WindDirection getWindDirection() {
 		final int adc;
 		try {
-			adc = driver.read(0, 12, 1);
+			adc = driver.read();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
