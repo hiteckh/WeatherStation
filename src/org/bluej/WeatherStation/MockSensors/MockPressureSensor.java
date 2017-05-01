@@ -32,7 +32,7 @@ public class MockPressureSensor implements PressureSensor {
      */
     public MockPressureSensor() {
         Random rnd = new Random();
-        this.pressureAtmospheres = rnd.nextDouble() * (double) (MAX_ATMOSPHERES - MIN_ATMOSPHERES) + MIN_ATMOSPHERES;
+        this.pressureAtmospheres = rnd.nextDouble() * (MAX_ATMOSPHERES - MIN_ATMOSPHERES) + MIN_ATMOSPHERES;
     }
 
     /**

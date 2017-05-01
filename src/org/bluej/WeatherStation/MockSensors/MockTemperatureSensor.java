@@ -32,7 +32,7 @@ public class MockTemperatureSensor implements TemperatureSensor {
     public MockTemperatureSensor() {
         Random rnd = new Random();
 
-        this.rawTemperature = rnd.nextDouble() * (double) (MAX_VALUE - MIN_VALUE) + MIN_VALUE;
+        this.rawTemperature = rnd.nextDouble() * (MAX_VALUE - MIN_VALUE) + MIN_VALUE;
     }
 
     /**

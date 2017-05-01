@@ -28,7 +28,7 @@ public class Temperature {
     private final double rawTemperature;
 
     /** An enum to represent the provided unit in the constructor */
-    public static enum TemperatureUnit {KELVIN, CELSIUS, FAHRENHEIT};
+    public enum TemperatureUnit {KELVIN, CELSIUS, FAHRENHEIT}
 
     /**
      * The sole constructor for a {@link Temperature} object.

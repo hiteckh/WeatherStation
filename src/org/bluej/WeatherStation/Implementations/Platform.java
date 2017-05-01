@@ -11,5 +11,5 @@ public enum Platform {
     /**
      * Mock sensors instead.
      */
-    MOCK;
+    MOCK
 }
