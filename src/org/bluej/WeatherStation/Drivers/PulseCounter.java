@@ -18,36 +18,36 @@ public class PulseCounter implements GpioPinListenerDigital {
      */
     public class Result {
         /**
-         * COnstruct a result.
+         * Construct a result.
          * @param count How many pulses were counted.
          * @param nanoseconds How many nanoseconds they were counted over.
          */
-        public Result (int count, long nanoseconds)
+        public Result(final int count, final long nanoseconds)
         {
-            count_ = count;
-            nanoseconds_ = nanoseconds;
+            this.count = count;
+            this.nanoseconds = nanoseconds;
         }
 
         /**
          * Return the pulse count.
          * @return The pulse count.
          */
-        public int getCount () {
-            return count_;
+        public int getCount() {
+            return count;
         }
 
         /**
          * Return the time that the pulse count was counted over.
          * @return The time in nanoseconds.
          */
-        public long getNanoseconds () {
-            return nanoseconds_;
+        public long getNanoseconds() {
+            return nanoseconds;
         }
 
         /** Where we store the count */
-        private final int count_;
+        private final int count;
         /** Where we store the nanoseconds */
-        private final long nanoseconds_;
+        private final long nanoseconds;
     }
 
     /**
@@ -57,31 +57,31 @@ public class PulseCounter implements GpioPinListenerDigital {
      * @param pin The pin we want to count pulses on.
      * @param debounce The debounce time in milliseconds.
      */
-    public PulseCounter (GpioController gpio, Pin pin, int debounce)
+    public PulseCounter(final GpioController gpio, final Pin pin, final int debounce)
     {
         // Locate and provision the pin.
-        in_ = gpio.provisionDigitalInputPin (pin, PinPullResistance.PULL_UP);
+        in = gpio.provisionDigitalInputPin(pin, PinPullResistance.PULL_UP);
 
         // Take note of its initial state.
-        lastState_ = in_.getState();
+        lastState = in.getState();
 
         // Set debounce time
-        in_.setDebounce (debounce);
+        in.setDebounce(debounce);
 
         // Initialise readings
-        count_ = 0;
-        readAt_ = System.nanoTime ();
+        count = 0;
+        readAt = System.nanoTime();
 
         // And use ourselves as the listener
-        in_.addListener (this);
+        in.addListener(this);
     }
 
     /**
      * Stop listening and generally shut down.
      */
-    public void close ()
+    public void close()
     {
-        in_.removeListener(this);
+        in.removeListener(this);
     }
 
     /**
@@ -89,40 +89,40 @@ public class PulseCounter implements GpioPinListenerDigital {
      * @throws Throwable If it all goes pear shaped.
      */
     @Override
-    protected void finalize () throws Throwable
+    protected void finalize() throws Throwable
     {
-        close ();
-        super.finalize ();
+        close();
+        super.finalize();
     }
 
     /**
      * Handle a pin change interrupt. Note that this is synchronized to avoid
-     * multiple access the to the count_ and readAt_ object variables.
+     * multiple access the to the count and readAt object variables.
      * @param e The event we're looking at.
      */
     @Override
-    public synchronized void handleGpioPinDigitalStateChangeEvent (GpioPinDigitalStateChangeEvent e)
+    public synchronized void handleGpioPinDigitalStateChangeEvent(final GpioPinDigitalStateChangeEvent e)
     {
         // What has happened?
-        switch (e.getState ()) {
+        switch (e.getState()) {
             case HIGH:
                 // We should come to HIGH from LOW.
-                if (lastState_ != PinState.LOW) {
+                if (lastState != PinState.LOW) {
                     // Add 1 to the count as we (presumably) missed a LOW.
-                    count_ += 1;
+                    count += 1;
                 }
 
                 // Make a note that we're now in the HIGH state.
-                lastState_ = PinState.HIGH;
+                lastState = PinState.HIGH;
 
                 break;
 
             case LOW:
                 // Increment the pulse count.
-                count_ += 1;
+                count += 1;
 
                 // Make a note that we're now in the LOW state.
-                lastState_ = PinState.LOW;
+                lastState = PinState.LOW;
 
                 break;
 
@@ -133,27 +133,26 @@ public class PulseCounter implements GpioPinListenerDigital {
     }
 
     /**
-     * Obtain the result of the pulse counting. Note that this is a synchrnoized
-     * method to avoid multiple access to the count_ and readAt_ object
-     * variables.
-     * @return The result. 
+     * Obtain the result of the pulse counting. Note that this is a synchronised
+     * method to avoid multiple access to the count and readAt object variables.
+     * @return The result.
      */
-    public synchronized Result getResult () {
-        final long now = System.nanoTime ();
+    public synchronized Result getResult() {
+        final long now = System.nanoTime();
 
-        Result r = new Result (count_, now - readAt_);
-        count_ = 0;
-        readAt_ = now;
+        final Result r = new Result(count, now - readAt);
+        count = 0;
+        readAt = now;
 
         return r;
     }
 
     /** The Pin we're working with. */
-    private final GpioPinDigitalInput in_;
+    private final GpioPinDigitalInput in;
     /** The counts since the last read. */
-    private int count_;
+    private int count;
     /** When we last read the data. */
-    private long readAt_;
-    /** The pin state we last saw */
-    private PinState lastState_;
+    private long readAt;
+    /** The pin state we last saw. */
+    private PinState lastState;
 }

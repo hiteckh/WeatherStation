@@ -6,16 +6,30 @@ import org.bluej.WeatherStation.Drivers.AirPressureTemperature;
 
 import java.io.IOException;
 
-class PiPressureSensor implements PressureSensor {
+/**
+ * Implementation of the pressure driver.
+ * Uses {@link AirPressureTemperature}.
+ */
+public class PiPressureSensor implements PressureSensor {
 
-    private final AirPressureTemperature SENSOR;
+    /**
+     * Driver instance.
+     */
+    private final AirPressureTemperature driver;
 
-    public PiPressureSensor() throws IOException {
-        SENSOR = AirPressureTemperature.getInstance();
+    /**
+     * Default constructor.
+     * @throws IOException
+     */
+    public PiPressureSensor() {
+        driver = AirPressureTemperature.getInstance();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Pressure getPressure() {
-        final int rawPressure = SENSOR.readPressure();
+        final int rawPressure = driver.readPressure();
         return new Pressure(rawPressure);
     }
 }

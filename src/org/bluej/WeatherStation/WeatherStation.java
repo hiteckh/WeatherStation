@@ -3,8 +3,6 @@ package org.bluej.WeatherStation;
 import org.bluej.WeatherStation.Sensors.*;
 import org.bluej.WeatherStation.Implementations.Factory;
 import org.bluej.WeatherStation.Implementations.Platform;
-import org.bluej.WeatherStation.Units.AirQuality;
-import org.bluej.WeatherStation.Units.WindDirection;
 
 /**
  * A class providing a high level interface to a weather station device.
@@ -54,9 +52,9 @@ public class WeatherStation {
      *
      * @return The current humidity in percent
      * @see HumiditySensor
-     * @throws SensorError Thrown when we can't read reliably from the sensor, for whatever reason.
+     * @throws SensorException Thrown when we can't read reliably from the sensor, for whatever reason.
      */
-    public final double getHumidity() throws SensorError {
+    public final double getHumidity() throws SensorException {
         return this.humiditySensor.getHumidity().inPercent();
     }
 
@@ -77,9 +75,9 @@ public class WeatherStation {
      *
      * @return The current temperature in celsius
      * @see TemperatureSensor
-     * @throws SensorError Thrown when we can't read reliably from the sensor, for whatever reason.
+     * @throws SensorException Thrown when we can't read reliably from the sensor, for whatever reason.
      */
-    public final double getAmbientTemperature() throws SensorError {
+    public final double getAmbientTemperature() throws SensorException {
         return this.ambientTemperatureSensor.getTemperature().inCelsius();
     }
 

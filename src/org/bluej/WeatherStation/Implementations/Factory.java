@@ -1,8 +1,17 @@
 package org.bluej.WeatherStation.Implementations;
 
-import org.bluej.WeatherStation.Sensors.*;
-import org.bluej.WeatherStation.MockSensors.*;
-import org.bluej.WeatherStation.Units.AirQuality;
+import org.bluej.WeatherStation.MockSensors.MockAirQualitySensor;
+import org.bluej.WeatherStation.MockSensors.MockHumiditySensor;
+import org.bluej.WeatherStation.MockSensors.MockPressureSensor;
+import org.bluej.WeatherStation.MockSensors.MockTemperatureSensor;
+import org.bluej.WeatherStation.MockSensors.MockWindSpeedSensor;
+import org.bluej.WeatherStation.MockSensors.MockWindVaneSensor;
+import org.bluej.WeatherStation.Sensors.AirQualitySensor;
+import org.bluej.WeatherStation.Sensors.HumiditySensor;
+import org.bluej.WeatherStation.Sensors.PressureSensor;
+import org.bluej.WeatherStation.Sensors.TemperatureSensor;
+import org.bluej.WeatherStation.Sensors.WindSpeedSensor;
+import org.bluej.WeatherStation.Sensors.WindVaneSensor;
 
 
 /**
@@ -150,10 +159,9 @@ public class Factory {
     /**
      * A getter method for the {@link WindVaneSensor} appropriate for the
      * {@link Platform} the {@link Factory} instance was constructed with.
-     * 
+     *
      * @return The {@link WindSpeedSensor} appropriate for the {@link Platform}
      * the {@link Factory} instance was constructed with.
-     * 
      * @see WindVaneSensor
      */
     public final WindVaneSensor getWindVaneSensor() {

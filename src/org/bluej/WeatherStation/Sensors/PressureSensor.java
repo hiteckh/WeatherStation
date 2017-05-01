@@ -2,6 +2,13 @@ package org.bluej.WeatherStation.Sensors;
 
 import org.bluej.WeatherStation.Units.Pressure;
 
+/**
+ * Represents the pressure sensor.
+ */
 public interface PressureSensor {
-    public Pressure getPressure();
+
+    /**
+     * @return The current pressure.
+     */
+    Pressure getPressure();
 }

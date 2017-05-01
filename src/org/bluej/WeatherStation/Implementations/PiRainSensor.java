@@ -5,6 +5,10 @@ import org.bluej.WeatherStation.Drivers.RainMeterListener;
 import org.bluej.WeatherStation.Sensors.RainSensor;
 import org.bluej.WeatherStation.Units.RainFall;
 
+/**
+ * Implementation of the rain sensor.
+ * Uses {@link RainMeter}.
+ */
 public class PiRainSensor implements RainSensor, RainMeterListener {
 
     /**
@@ -34,6 +38,7 @@ public class PiRainSensor implements RainSensor, RainMeterListener {
     }
 
     /**
+     * {@inheritDoc}
      * Get the amount of rainfall since we last reset the counter.
      */
     @Override

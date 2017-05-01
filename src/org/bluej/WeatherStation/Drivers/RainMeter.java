@@ -1,6 +1,10 @@
 package org.bluej.WeatherStation.Drivers;
 
-import com.pi4j.io.gpio.*;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioPinDigitalInput;
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiBcmPin;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 /**
@@ -8,19 +12,32 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
  */
 public final class RainMeter {
 
-	private static RainMeter INSTANCE = null;
+	/**
+	 * Singleton instance.
+	 */
+	private static RainMeter instance = null;
 
+	/**
+	 * @return The singleton.
+	 */
 	public static synchronized RainMeter getInstance() {
-	    if (INSTANCE == null) {
-	        INSTANCE = new RainMeter();
+	    if (instance == null) {
+	        instance = new RainMeter();
         }
-
-        return INSTANCE;
+        return instance;
     }
 
-    private static Pin PIN_RAIN_SENSOR = RaspiBcmPin.GPIO_22;
+	/**
+	 * The pin of the rain sensor.
+	 * Decided at compile time.
+	 */
+	private static final Pin PIN_RAIN_SENSOR = RaspiBcmPin.GPIO_22;
 
-    private final GpioPinDigitalInput GPIO_PIN_RAIN_SENSOR;
+	/**
+	 * The GPIO pin of the rain sensor.
+	 * Decided at runtime.
+	 */
+    private final GpioPinDigitalInput gpioPinDigitalInput;
 
     /**
      * Constructor.
@@ -28,7 +45,7 @@ public final class RainMeter {
      */
 	private RainMeter() {
 		final GpioController controller = PinUtil.getController();
-		GPIO_PIN_RAIN_SENSOR = controller.provisionDigitalInputPin(PIN_RAIN_SENSOR);
+		gpioPinDigitalInput = controller.provisionDigitalInputPin(PIN_RAIN_SENSOR);
 	}
 
     /**
@@ -36,8 +53,8 @@ public final class RainMeter {
      * @param listener The listener to add.
      */
 	public void addListener(final RainMeterListener listener) {
-	    GPIO_PIN_RAIN_SENSOR.addListener((GpioPinListenerDigital) event -> {
-			if(event.getState() == PinState.LOW)
+	    gpioPinDigitalInput.addListener((GpioPinListenerDigital) event -> {
+			if (event.getState() == PinState.LOW)
 				listener.onTriggered();
 		});
     }

@@ -1,9 +1,15 @@
 package org.bluej.WeatherStation.Sensors;
 
 import org.bluej.WeatherStation.Units.Temperature;
-import org.bluej.WeatherStation.Sensors.SensorError;
 
+/**
+ * Represents the temperature sensor.
+ */
 public interface TemperatureSensor {
-    public Temperature getTemperature() throws SensorError;
+
+    /**
+     * @return The current temperature.
+     */
+    Temperature getTemperature();
 }
 

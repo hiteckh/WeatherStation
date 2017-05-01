@@ -1,5 +1,7 @@
 package org.bluej.WeatherStation.Drivers;
 
+import org.bluej.WeatherStation.Sensors.SensorException;
+
 import java.io.IOException;
 
 /**
@@ -8,19 +10,30 @@ import java.io.IOException;
  *
  * @author Joe Reid.
  */
-public class GroundTemperature {
+public final class GroundTemperature {
+
+    /**
+     * Singleton instance.
+     */
     private static DS18B20 instance = null;
 
-    public static DS18B20 getDriver() throws IOException {
+    /**
+     * @return The singleton.
+     */
+    public static synchronized DS18B20 getDriver() {
         if (GroundTemperature.instance == null) {
-
-            synchronized (GroundTemperature.class) {
-                if (GroundTemperature.instance == null) {
-                    GroundTemperature.instance = new DS18B20();
-                }
+            try {
+                GroundTemperature.instance = new DS18B20();
+            } catch (final IOException e) {
+                throw new SensorException(e);
             }
         }
-
         return GroundTemperature.instance;
+    }
+
+    /**
+     * Utility class.
+     */
+    private GroundTemperature() {
     }
 }

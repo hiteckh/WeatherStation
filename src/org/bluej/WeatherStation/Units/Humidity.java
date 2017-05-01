@@ -11,7 +11,7 @@ import org.bluej.WeatherStation.Sensors.HumiditySensor;
  */
 public class Humidity {
     /** A constant used to convert decimal values to percentage values.*/
-    private static final double PERCENTAGE_COEFFICIENT = 100;
+    public static final double PERCENTAGE_COEFFICIENT = 100;
 
     /** humidity as a fractional value.*/
     private final double rawHumidity;

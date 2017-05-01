@@ -6,24 +6,40 @@ import org.bluej.WeatherStation.Drivers.HTU21D;
 
 import org.bluej.WeatherStation.Units.Temperature;
 import org.bluej.WeatherStation.Sensors.TemperatureSensor;
-import org.bluej.WeatherStation.Sensors.SensorError;
+import org.bluej.WeatherStation.Sensors.SensorException;
 
-class PiAmbientTemperatureSensor implements TemperatureSensor {
-    private HTU21D sensor;
+import java.io.IOException;
 
-    public PiAmbientTemperatureSensor() throws SensorError {
+/**
+ * Implementation of the ambient temperature driver.
+ * Uses {@link AirHumidityTemperature}.
+ */
+public class PiAmbientTemperatureSensor implements TemperatureSensor {
+
+    /**
+     * Instance of the driver.
+     */
+    private HTU21D driver;
+
+    /**
+     * Default constructor.
+     */
+    public PiAmbientTemperatureSensor() {
         try {
-            this.sensor = AirHumidityTemperature.getDriver();
-        } catch (Exception e) {
-            throw new SensorError(e);
+            this.driver = AirHumidityTemperature.getDriver();
+        } catch (final IOException e) {
+            throw new SensorException(e);
         }
     }
 
-    public Temperature getTemperature() throws SensorError {
+    /**
+     * {@inheritDoc}
+     */
+    public Temperature getTemperature() {
         try {
-            return new Temperature(Temperature.TemperatureUnit.CELSIUS, this.sensor.read().getTemperature());
+            return new Temperature(Temperature.TemperatureUnit.CELSIUS, this.driver.read().getTemperature());
         } catch (Exception e) {
-            throw new SensorError(e);
+            throw new SensorException(e);
         }
     }
 }

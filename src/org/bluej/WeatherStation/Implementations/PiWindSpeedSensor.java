@@ -5,18 +5,21 @@ import org.bluej.WeatherStation.Drivers.AnemometerListener;
 import org.bluej.WeatherStation.Units.WindSpeed;
 import org.bluej.WeatherStation.Sensors.WindSpeedSensor;
 
-
+/**
+ * Implementation of the anemometer.
+ * Uses {@link Anemometer}.
+ */
 public class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
 
     /**
      * The radius of the anemometer, in cm.
      */
-    private static double CIRCLE_RADIUS_CM = 9;
+    private static final double CIRCLE_RADIUS_CM = 9;
 
     /**
      * The amount to multiply our results by to correct for lost energy spinning the anemometer.
      */
-    private static double CALIBRATION_FACTOR = 1.18;
+    private static final double CALIBRATION_FACTOR = 1.18;
 
     /**
      * The number of times the anemometer has turned a half-circle.
@@ -28,6 +31,9 @@ public class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
      */
     private long lastCollectionTimeMillis;
 
+    /**
+     * Default constructor.
+     */
     public PiWindSpeedSensor() {
         // Asks the anemometer to let us know when it's completed half a turn.
         Anemometer.getInstance().addListener(this);
@@ -45,6 +51,7 @@ public class PiWindSpeedSensor implements WindSpeedSensor, AnemometerListener {
     }
 
     /**
+     * {@inheritDoc}
      * Gets the wind speed as the number of times the anemometer has completed a full circle since the last time
      * something asked for the wind speed.
      * {@link WindSpeed} handles most of the maths.

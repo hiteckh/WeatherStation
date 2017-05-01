@@ -1,6 +1,11 @@
 package org.bluej.WeatherStation.Drivers;
 
-import com.pi4j.io.gpio.*;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioPinDigitalInput;
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.PinPullResistance;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiBcmPin;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 /**
@@ -8,19 +13,32 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
  */
 public final class Anemometer {
 
-	private static Anemometer INSTANCE = null;
+	/**
+	 * Singleton instance.
+	 */
+	private static Anemometer instance = null;
 
+	/**
+	 * @return The singleton.
+	 */
 	public static synchronized Anemometer getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new Anemometer();
+		if (instance == null) {
+			instance = new Anemometer();
 		}
-
-		return INSTANCE;
+		return instance;
 	}
 
-	private static Pin PIN_ANEMOMETER = RaspiBcmPin.GPIO_21;
+	/**
+	 * The pin of the anemometer.
+	 * Decided at compile time.
+	 */
+	private static final Pin PIN_ANEMOMETER = RaspiBcmPin.GPIO_21;
 
-	private final GpioPinDigitalInput GPIO_PIN_ANEMOMETER;
+	/**
+	 * The GPIO pin of the anemometer.
+	 * Provisioned at runtime.
+	 */
+	private final GpioPinDigitalInput gpioPinAnemometer;
 
 	/**
 	 * Constructor.
@@ -28,7 +46,7 @@ public final class Anemometer {
 	 */
 	private Anemometer() {
 		final GpioController controller = PinUtil.getController();
-		GPIO_PIN_ANEMOMETER = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
+		gpioPinAnemometer = controller.provisionDigitalInputPin(PIN_ANEMOMETER, PinPullResistance.PULL_UP);
 	}
 
 	/**
@@ -36,8 +54,8 @@ public final class Anemometer {
 	 * @param listener The listener to add.
 	 */
 	public void addListener(final AnemometerListener listener) {
-		GPIO_PIN_ANEMOMETER.addListener((GpioPinListenerDigital) event -> {
-			if(event.getState() == PinState.LOW)
+		gpioPinAnemometer.addListener((GpioPinListenerDigital) event -> {
+			if (event.getState() == PinState.LOW)
 				listener.onTriggered();
 		});
 	}

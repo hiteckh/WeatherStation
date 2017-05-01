@@ -5,25 +5,38 @@ import org.bluej.WeatherStation.Drivers.HTU21D;
 
 import org.bluej.WeatherStation.Units.Humidity;
 import org.bluej.WeatherStation.Sensors.HumiditySensor;
-import org.bluej.WeatherStation.Sensors.SensorError;
+import org.bluej.WeatherStation.Sensors.SensorException;
 
+/**
+ * Implementation of the humidity sensor.
+ * Uses {@link HTU21D}.
+ */
+public class PiHumiditySensor implements HumiditySensor {
 
-class PiHumiditySensor implements HumiditySensor {
-    private HTU21D sensor;
+    /**
+     * Driver instance.
+     */
+    private final HTU21D sensor;
 
-    public PiHumiditySensor() throws SensorError {
+    /**
+     * Default constructor.
+     */
+    public PiHumiditySensor() {
         try {
             this.sensor = AirHumidityTemperature.getDriver();
         } catch (Exception e) {
-            throw new SensorError(e);
+            throw new SensorException(e);
         }
     }
 
-    public Humidity getHumidity() throws SensorError {
+    /**
+     * {@inheritDoc}
+     */
+    public Humidity getHumidity() {
         try {
-            return new Humidity(this.sensor.read().getHumidity()/100);
+            return new Humidity(this.sensor.read().getHumidity() / Humidity.PERCENTAGE_COEFFICIENT);
         } catch (Exception e) {
-            throw new SensorError(e);
+            throw new SensorException(e);
         }
     }
 }

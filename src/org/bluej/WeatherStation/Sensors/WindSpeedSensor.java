@@ -2,6 +2,13 @@ package org.bluej.WeatherStation.Sensors;
 
 import org.bluej.WeatherStation.Units.WindSpeed;
 
+/**
+ * Represents the wind speed.
+ */
 public interface WindSpeedSensor {
-    public WindSpeed getWindSpeed();
+
+    /**
+     * @return The current wind speed.
+     */
+    WindSpeed getWindSpeed();
 }

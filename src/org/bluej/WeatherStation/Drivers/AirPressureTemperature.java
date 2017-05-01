@@ -3,7 +3,7 @@ package org.bluej.WeatherStation.Drivers;
 import java.io.IOException;
 
 import com.pi4j.io.i2c.I2CBus;
-import org.bluej.WeatherStation.Units.Temperature;
+import org.bluej.WeatherStation.Sensors.SensorException;
 
 /**
  * This class provides a singleton interface to the BMP180 air pressure and
@@ -13,43 +13,68 @@ import org.bluej.WeatherStation.Units.Temperature;
  */
 public class AirPressureTemperature {
 
+    /**
+     * The address of the air pressure and temperature sensor.
+     */
     private static final int ADDRESS = 0x77;
 
+    /**
+     * The mode of the sensor.
+     */
     private static final int MODE = 3;
 
-    private static AirPressureTemperature INSTANCE = null;
+    /**
+     * Singleton instance.
+     */
+    private static AirPressureTemperature instance = null;
 
-    public synchronized static AirPressureTemperature getInstance() {
-        if (AirPressureTemperature.INSTANCE == null) {
-            INSTANCE = new AirPressureTemperature();
+    /**
+     * Singleton generator.
+     * @return The singleton.
+     */
+    public static synchronized AirPressureTemperature getInstance() {
+        if (AirPressureTemperature.instance == null) {
+            try {
+                instance = new AirPressureTemperature();
+            } catch (final IOException e) {
+                throw new SensorException(e);
+            }
         }
-
-        return AirPressureTemperature.INSTANCE;
+        return AirPressureTemperature.instance;
     }
 
-    private final BMP180 DRIVER;
+    /**
+     * The hardware driver.
+     */
+    private final BMP180 driver;
 
-    public AirPressureTemperature() {
-        try {
-            DRIVER = new BMP180(PinUtil.getI2CBus(I2CBus.BUS_1), ADDRESS);
-        } catch (final IOException e) {
-            throw new IllegalStateException(PinUtil.PI4J_MISSING_EXCEPTION_MESSAGE, e);
-        }
+    /**
+     * Default constructor.
+     * @throws IOException Thrown if unable to instantiate driver.
+     */
+    public AirPressureTemperature() throws IOException {
+        driver = new BMP180(PinUtil.getI2CBus(I2CBus.BUS_1), ADDRESS);
     }
 
+    /**
+     * @return The temperature that the sensor reads.
+     */
     public int readTemp() {
         try {
-            return DRIVER.read(MODE).getTemperature();
+            return driver.read(MODE).getTemperature();
         } catch (final IOException e) {
-            throw new IllegalStateException(PinUtil.PI4J_MISSING_EXCEPTION_MESSAGE, e);
+            throw new SensorException(PinUtil.PI4J_MISSING_EXCEPTION_MESSAGE, e);
         }
     }
 
+    /**
+     * @return The air pressure that the sensor reads.
+     */
     public int readPressure() {
         try {
-            return DRIVER.read(MODE).getPressure();
+            return driver.read(MODE).getPressure();
         } catch (final IOException e) {
-            throw new IllegalStateException(PinUtil.PI4J_MISSING_EXCEPTION_MESSAGE, e);
+            throw new SensorException(PinUtil.PI4J_MISSING_EXCEPTION_MESSAGE, e);
         }
     }
 }

@@ -27,10 +27,10 @@ public class BMP180 {
           * @param pressure The pressure (in Pa).
           * @param temperature The temperature (in degrees Celsius times 10).
           */
-        public Result (int pressure, int temperature)
+        public Result(final int pressure, final int temperature)
         {
-            pressure_= pressure;
-            temperature_ = temperature;
+            this.pressure = pressure;
+            this.temperature = temperature;
         }
 
         /**
@@ -39,9 +39,9 @@ public class BMP180 {
          *
          * @return The pressure in Pa.
          */
-        public int getPressure ()
+        public int getPressure()
         {
-            return pressure_;
+            return pressure;
         }
 
         /**
@@ -50,15 +50,15 @@ public class BMP180 {
          *
          * @return The temperature in degrees Celsius times 10.
          */
-        public int getTemperature ()
+        public int getTemperature()
         {
-            return temperature_;
+            return temperature;
         }
 
         /** Where we hold the pressure (in Pa). */
-        private final int pressure_;
+        private final int pressure;
         /** Where we hold the temperature (in Celsius times 10). */
-        private final int temperature_;
+        private final int temperature;
     }
 
     /**
@@ -70,21 +70,21 @@ public class BMP180 {
      * @param dev The device address on that bus (it can be changed).
      * @throws IOException If something goes amiss talking to the device.
      */
-    public BMP180 (I2CBus bus, int dev) throws IOException
+    public BMP180(final I2CBus bus, final int dev) throws IOException
     {
         // Get a device object to use for communication.
-        device = bus.getDevice (dev);
+        device = bus.getDevice(dev);
 
         // Verify it really is a BMP180
-        if (device.read (SIGNATURE_REG) != SIGNATURE)
-            throw new IOException ("BMP180: Invalid signature");
+        if (device.read(SIGNATURE_REG) != SIGNATURE)
+            throw new IOException("BMP180: Invalid signature");
 
         // Load the device calibration data (all in one go!).
-        final int got = device.read (CALIBRATION_REG, buffer, 0, BUFFER_SIZE);
+        final int got = device.read(CALIBRATION_REG, buffer, 0, BUFFER_SIZE);
 
         // Did we get it all?
         if (got != BUFFER_SIZE)
-            throw new IOException ("BMP180: Failed to read calibration coefficients");
+            throw new IOException("BMP180: Failed to read calibration coefficients");
 
         // The values are all 16-bit but AC4 to AC6 are unsigned. As Java
         // doesn't have unsigned variables but bytes are signed we take great
@@ -114,18 +114,18 @@ public class BMP180 {
      * @throws IOException In the case of invalid mode selection or I2C bus
      * problems.
      */
-    public Result read (int mode) throws IOException
+    public Result read(final int mode) throws IOException
     {
         // Validate the mode
         if (mode < 0 || mode > 3)
-            throw new IOException ("BMP180: Invalid mode");
+            throw new IOException("BMP180: Invalid mode");
 
         // Request the temperature and get the result as per the data sheet.
-        device.write (CMD_REG, CMD_READ_TEMP);
-        Gpio.delay (5);
+        device.write(CMD_REG, CMD_READ_TEMP);
+        Gpio.delay(5);
 
-        if (device.read (RESULT_REG, buffer, 0, TEMP_SIZE) != TEMP_SIZE)
-            throw new IOException ("BMP180: Short temperature read");
+        if (device.read(RESULT_REG, buffer, 0, TEMP_SIZE) != TEMP_SIZE)
+            throw new IOException("BMP180: Short temperature read");
 
         // Perform rituals as per the data sheet.
         final int UT = (buffer[0] << 8) | (buffer[1] & 0xff);
@@ -138,14 +138,14 @@ public class BMP180 {
         final long T = (B5 + 8) / 16;
 
         // How long it takes to read the pressure for each mode.
-        final int delays[] = {5, 8, 14, 26};
+        final int[] delays = {5, 8, 14, 26};
 
         // Request the pressure and get the result as per the data sheet.
-        device.write (CMD_REG, (byte) (CMD_READ_PRESSURE + (mode << 6)));
-        Gpio.delay (delays[mode]);
+        device.write(CMD_REG, (byte) (CMD_READ_PRESSURE + (mode << 6)));
+        Gpio.delay(delays[mode]);
 
-        if (device.read (RESULT_REG, buffer, 0, PRESSURE_SIZE) != PRESSURE_SIZE)
-            throw new IOException ("BMP180: Short pressure read");
+        if (device.read(RESULT_REG, buffer, 0, PRESSURE_SIZE) != PRESSURE_SIZE)
+            throw new IOException("BMP180: Short pressure read");
 
         // Perform more magic as per the data sheet.
         final int UP = (((buffer[0] & 0xff) << 16) | ((buffer[1] & 0xff) << 8) | (buffer[2] & 0xff)) >> (8 - mode);
@@ -174,7 +174,7 @@ public class BMP180 {
         p = p + (X1 + X2 + 3791) / 16;
 
         // And we have a result
-        return new Result ((int) p, (int) T);
+        return new Result((int) p, (int) T);
     }
 
     /** Largest read data sized used (in fact calibration data) */

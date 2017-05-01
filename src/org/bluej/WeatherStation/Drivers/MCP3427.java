@@ -25,7 +25,7 @@ public class MCP3427 {
     /** The pi4j I2CDevice object we use to communicate with */
     private final I2CDevice device;
     /** The numeric device on the bus */
-    private final int dev_id;
+    private final int devId;
     /** The buffer area we use */
     private final byte buffer[] = new byte[3];
 
@@ -37,18 +37,32 @@ public class MCP3427 {
      *
      * @throws IOException If communication on the I2C bus fails.
      */
-    public MCP3427 (final int busNum, final int address) throws IOException {
+    public MCP3427(final int busNum, final int address) throws IOException {
         final I2CBus bus;
         try {
             bus = I2CFactory.getInstance(busNum);
         } catch (final I2CFactory.UnsupportedBusNumberException e) {
             throw new IllegalStateException(e);
         }
-        dev_id = address;
-        device = bus.getDevice (address);
-        device.write (CMD_SINGLE_SHOT);
+        devId = address;
+        device = bus.getDevice(address);
+        device.write(CMD_SINGLE_SHOT);
     }
 
+    /**
+     * Read the value of an analogue input. We normalise the value returned so
+     * that the actual voltage is the returned value * VREF / 32768.
+     * <br/>
+     * Default method for {@link #read(int, int, int)}:
+     * <ul>
+     *     <li>Channel = 1</li>
+     *     <li>Bits = 16</li>
+     *     <li>Gain = 1</li>
+     * </ul>
+     * @return The value read normalised to {@value #MIN} to {@value #MAX}
+     * @throws IOException In the case of an invalid parameter or some mishap
+     * on the I2C bus.
+     */
     public int read() throws IOException {
         return read(0, 16, 1);
     }
@@ -60,11 +74,11 @@ public class MCP3427 {
      * @param channel The channel to read: 0 or 1.
      * @param bits The bits resolution required: 12, 14 or 16.
      * @param gain The gain to be used: 1, 2, 4 or 8.
-     * @return The value read normalised to -32768 to 32767.
+     * @return The value read normalised to {@value #MIN} to {@value #MAX}
      * @throws IOException In the case of an invalid parameter or some mishap
      * on the I2C bus.
      */
-    public int read (int channel, int bits, int gain) throws IOException
+    public int read(final int channel, final int bits, final int gain) throws IOException
     {
         byte config = CMD_START;
         int delay;
@@ -80,7 +94,7 @@ public class MCP3427 {
                 break;
 
             default:
-                throw new IOException ("MCP3427@" + Integer.toHexString(dev_id) + ": Invalid channel");
+                throw new IOException("MCP3427@" + Integer.toHexString(devId) + ": Invalid channel");
         }
 
         // Add the bits to the command and add in the current delay.
@@ -101,7 +115,7 @@ public class MCP3427 {
                 break;
 
             default:
-                throw new IOException ("MCP3427@" + Integer.toHexString(dev_id) + ": Invalid resolution");
+                throw new IOException("MCP3427@" + Integer.toHexString(devId) + ": Invalid resolution");
         }
 
         // Add in the gain to the command.
@@ -123,11 +137,11 @@ public class MCP3427 {
                 break;
 
             default:
-                throw new IOException ("MCP3427@" + Integer.toHexString(dev_id) + ": Invalid gain");
+                throw new IOException("MCP3427@" + Integer.toHexString(devId) + ": Invalid gain");
         }
 
         // Run the command
-        device.write (config);
+        device.write(config);
 
         // Wait for the response
         Gpio.delay(delay);
@@ -136,8 +150,8 @@ public class MCP3427 {
         boolean onFirst = false;
 
         for (int tries = 0; tries < 10; ++tries) {
-            if (device.read (buffer, 0, 3) != 3)
-                throw new IOException ("MCP3427@" + Integer.toHexString(dev_id) + ": failed to read data");
+            if (device.read(buffer, 0, 3) != 3)
+                throw new IOException("MCP3427@" + Integer.toHexString(devId) + ": failed to read data");
 
             if ((buffer[2] & 0x80) == 0) {
                 ok = true;
@@ -148,11 +162,11 @@ public class MCP3427 {
                 break;
             }
 
-            Gpio.delay (delay / 10 + 1);
+            Gpio.delay(delay / 10 + 1);
         }
 
         if (!ok)
-            throw new IOException ("MCP3427@" + Integer.toHexString(dev_id) + ": Conversion failed");
+            throw new IOException("MCP3427@" + Integer.toHexString(devId) + ": Conversion failed");
 
         // If we didn't get it on the first time, bump up the delay
         if (!onFirst) {

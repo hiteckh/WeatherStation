@@ -1,7 +1,13 @@
 package org.bluej.WeatherStation.Units;
 
+/**
+ * Represents rainfall.
+ */
 public class RainFall {
 
+    /**
+     * The rainfall, in mm.
+     */
     private final double mm;
 
     /**
@@ -13,7 +19,6 @@ public class RainFall {
     }
 
     /**
-     * Gives the amount of rainfall, in mm.
      * @return The amount of rainfall, in millimeters.
      */
     public double inMM() {

@@ -1,26 +1,58 @@
 package org.bluej.WeatherStation.DatabaseUploader;
 
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.Properties;
 
-public class Config {
-    public String mysqlHost = null;
-    public String mysqlUser = null;
-    public String mysqlPass = null;
-    public String mysqlDB   = null;
+/**
+ * Container class for all database config parameters.
+ */
+public final class Config {
 
-    public String cloudURL  = null;
-    public String cloudUser = null;
-    public String cloudPass = null;
+    // MySQL config settings.
+    /**
+     * The host address.
+     */
+    private String mysqlHost = null;
+    /**
+     * The username.
+     */
+    private String mysqlUser = null;
+    /**
+     * The plaintext password.
+     */
+    private String mysqlPass = null;
+    /**
+     * The database to target.
+     */
+    private String mysqlDB   = null;
 
-    public Config(String filename) throws ConfigError {
-        Properties prop = new Properties();
+    // Oracle Cloud settings.
+    /**
+     * The host address.
+     */
+    private String cloudURL  = null;
+    /**
+     * The username.
+     */
+    private String cloudUser = null;
+    /**
+     * The plaintext password.
+     */
+    private String cloudPass = null;
+
+    /**
+     * Default constructor.
+     * Loads a properties file.
+     * @param filename Path of the properties file to load.
+     * @throws ConfigException Thrown when unable to produce a valid config.
+     */
+    Config(final String filename) throws ConfigException {
+        final Properties prop = new Properties();
 
         try {
             prop.load(new FileInputStream(filename));
         } catch (Exception e) {
-            throw new ConfigError(e);
+            throw new ConfigException(e);
         }
 
         this.mysqlHost = prop.getProperty("mysql.host");
@@ -33,11 +65,72 @@ public class Config {
         this.cloudPass = prop.getProperty("cloud.pass");
     }
 
-    public class ConfigError extends Exception {
-        Exception e = null;
+    /**
+     * Simple getter.
+     * @return {@link #mysqlHost}.
+     */
+    public String getMysqlHost() {
+        return mysqlHost;
+    }
 
-        public ConfigError(Exception e) {
-            this.e = e;
+    /**
+     * Simple getter.
+     * @return {@link #mysqlUser}.
+     */
+    public String getMysqlUser() {
+        return mysqlUser;
+    }
+
+    /**
+     * Simple getter.
+     * @return {@link #mysqlPass}.
+     */
+    public String getMysqlPass() {
+        return mysqlPass;
+    }
+
+    /**
+     * Simple getter.
+     * @return {@link #mysqlDB}.
+     */
+    public String getMysqlDB() {
+        return mysqlDB;
+    }
+
+    /**
+     * Simple getter.
+     * @return {@link #cloudURL}.
+     */
+    public String getCloudURL() {
+        return cloudURL;
+    }
+
+    /**
+     * Simple getter.
+     * @return {@link #cloudUser}.
+     */
+    public String getCloudUser() {
+        return cloudUser;
+    }
+
+    /**
+     * Simple getter.
+     * @return {@link #cloudPass}.
+     */
+    public String getCloudPass() {
+        return cloudPass;
+    }
+
+    /**
+     * Used to represent an inability to create a valid config.
+     */
+    public class ConfigException extends Exception {
+        /**
+         * Default constructor.
+         * @param cause :  The cause of the config error.
+         */
+        ConfigException(final Throwable cause) {
+            super(cause);
         }
     }
 }

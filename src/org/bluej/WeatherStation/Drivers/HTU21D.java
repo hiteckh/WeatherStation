@@ -10,7 +10,6 @@ import com.pi4j.wiringpi.Gpio;
 /**
  * This class is used to interface to the HTU21D humidity and temperature
  * sensor.
- * 
  * @author Jim Darby.
  */
 public class HTU21D {
@@ -27,10 +26,10 @@ public class HTU21D {
          * @param humidity The relative humidity.
          * @param temperature The temperature (in degrees Celsius).
          */
-        public Result (double humidity, double temperature)
+        public Result(final double humidity, final double temperature)
         {
-            humidity_= humidity;
-            temperature_ = temperature;
+            this.humidity = humidity;
+            this.temperature = temperature;
         }
 
         /**
@@ -38,9 +37,9 @@ public class HTU21D {
          * constructor and cannot be modified.
          * @return The relative humidity as a percentage.
          */
-        public double getHumidity ()
+        public double getHumidity()
         {
-            return humidity_;
+            return humidity;
         }
 
         /**
@@ -48,16 +47,16 @@ public class HTU21D {
          * is set in the constructor and cannot be modified.
          * @return The temperature in degrees Celsius.
          */
-        public double getTemperature ()
+        public double getTemperature()
         {
-            return temperature_;
+            return temperature;
         }
 
         /** Where we store the humidity. */
-        private final double humidity_;
+        private final double humidity;
 
         /** Where we store the temperature. */
-        private final double temperature_;
+        private final double temperature;
     }
 
     /**
@@ -66,16 +65,16 @@ public class HTU21D {
      * @param bus The {@code I2CBus} the device is on.
      * @throws IOException If something goes amiss talking to the device.
      */
-    public HTU21D (I2CBus bus) throws IOException
+    public HTU21D(final I2CBus bus) throws IOException
     {
         // Get a device object to use for communication.
-        device = bus.getDevice (DEVICE_ID);
+        device = bus.getDevice(DEVICE_ID);
 
         // Perform a soft reset
-        device.write (CMD_SOFT_RESET);
+        device.write(CMD_SOFT_RESET);
 
         // Set device mode to be sure.
-        device.write (INIT, 0, INIT.length);
+        device.write(INIT, 0, INIT.length);
     }
 
     /**
@@ -83,43 +82,43 @@ public class HTU21D {
      * @return A {@code HTU21D.Result} object containing the values read.
      * @throws IOException If something goes amiss talking to the device.
      */
-    public Result read () throws IOException
+    public Result read() throws IOException
     {
         // Start devive reading the temperature.
-        device.write (CMD_READ_TEMP_NOHOLD);
+        device.write(CMD_READ_TEMP_NOHOLD);
 
         // The data sheet states that 50 mS is the maximum time to read the temperature.
-        Gpio.delay (50);
+        Gpio.delay(50);
 
         // Grab data from the device
-        if (device.read (buffer, 0, 3) != 3)
-            throw new IOException ("HTU21D: Failed to read temperature");
+        if (device.read(buffer, 0, 3) != 3)
+            throw new IOException("HTU21D: Failed to read temperature");
 
         // Validate the checksum (CRC).
-        verify_crc (buffer);
+        verifyCrc(buffer);
 
         // Calculate the temperature as per the data sheet.
         final double temperature = -46.85 + 175.72 * (((buffer[0] & 0xff) << 8) | (buffer[1] & 0xfc)) / 65536.0;
 
         // Start device reading the temperature
-        device.write (CMD_READ_HUMID_NOHOLD);
+        device.write(CMD_READ_HUMID_NOHOLD);
 
         // The data sheet states that 16 mS is the maximum time to read the humidity
-        Gpio.delay (16);
+        Gpio.delay(16);
 
         // Grab the readings from the device.
-        if (device.read (buffer, 0, 3) != 3)
-            throw new IOException ("HTU21D: Failed to read humidity");
+        if (device.read(buffer, 0, 3) != 3)
+            throw new IOException("HTU21D: Failed to read humidity");
 
         // Validate the checksum (CRC).
-        verify_crc (buffer);
+        verifyCrc(buffer);
 
         // Calculate the basic humidity as per the datasheet.
         final double humidity = -6 + 125 * (((buffer[0] & 0xff) << 8) | (buffer[1] & 0xfc)) / 65536.0;
 
         // Return the result including the temperature compensation to the
         // humidity as per the datasheet.
-        return new Result (humidity + (25 - temperature) * -0.15, temperature);
+        return new Result(humidity + (25 - temperature) * -0.15, temperature);
     }
 
     /**
@@ -131,7 +130,7 @@ public class HTU21D {
      * @param buffer The buffer to verify.
      * @throws IOException If verification fails.
      */
-    private static void verify_crc (byte buffer[]) throws IOException
+    private static void verifyCrc(final byte buffer[]) throws IOException
     {
         int remainder = ((buffer[0] & 0xff) << 16) | ((buffer[1] & 0xff) << 8) | (buffer[2] & 0xff);
         int divisor = 0x988000;
@@ -149,7 +148,7 @@ public class HTU21D {
         }
 
         if (remainder != 0)
-            throw new IOException ("HTU21D: CRC failure");
+            throw new IOException("HTU21D: CRC failure");
     }
 
     // Class constatants
@@ -165,13 +164,15 @@ public class HTU21D {
     /** Request a humidity read without holding the bus */
     private static final byte CMD_READ_HUMID_NOHOLD = (byte) 0xf5;
 
-    // This is the power-on default but be safe (highest precision).
-    private static final byte INIT[] = { CMD_WRITE_USER_REG, 0 };
+    /**
+     * This is the power-on default but be safe (highest precision).
+     */
+    private static final byte[] INIT = {CMD_WRITE_USER_REG, 0};
 
-    // Object varaibles
+    // Object variables
 
     /** The pi4j I2CDevice object we use to communicate with */
     private final I2CDevice device;
     /** The buffer area we use */
-    private final byte buffer[] = new byte[3];
+    private final byte[] buffer = new byte[3];
  }
