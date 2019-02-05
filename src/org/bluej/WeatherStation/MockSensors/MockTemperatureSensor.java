@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.MockSensors;
+package src.org.bluej.WeatherStation.MockSensors;
 
 import org.bluej.WeatherStation.Sensors.TemperatureSensor;
 import org.bluej.WeatherStation.Units.Temperature;

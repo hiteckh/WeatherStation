@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Sensors;
+package src.org.bluej.WeatherStation.Sensors;
 
 /**
  * Thrown when we're unable to read reliable from a sensor,

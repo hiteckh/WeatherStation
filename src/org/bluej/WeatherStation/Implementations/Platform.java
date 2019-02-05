@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Implementations;
+package src.org.bluej.WeatherStation.Implementations;
 
 /**
  * Represents the possible suite of sensors that might be available to us.

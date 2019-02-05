@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.DatabaseUploader;
+package src.org.bluej.WeatherStation.DatabaseUploader;
 
 import java.io.FileInputStream;
 import java.util.Properties;

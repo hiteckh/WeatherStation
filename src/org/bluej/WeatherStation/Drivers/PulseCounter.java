@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Drivers;
+package src.org.bluej.WeatherStation.Drivers;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.Pin;

@@ -1,9 +1,9 @@
-package org.bluej.WeatherStation;
+package src.org.bluej.WeatherStation;
 
 import org.bluej.WeatherStation.Sensors.*;
 import org.bluej.WeatherStation.Implementations.Factory;
 import org.bluej.WeatherStation.Implementations.Platform;
-
+     
 /**
  * A class providing a high level interface to a weather station device.
  *

@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Units;
+package src.org.bluej.WeatherStation.Units;
 
 import org.bluej.WeatherStation.Sensors.HumiditySensor;
 

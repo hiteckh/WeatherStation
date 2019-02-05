@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Implementations;
+package src.org.bluej.WeatherStation.Implementations;
 
 
 import org.bluej.WeatherStation.Drivers.AirHumidityTemperature;

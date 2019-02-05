@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Sensors;
+package src.org.bluej.WeatherStation.Sensors;
 
 import org.bluej.WeatherStation.Units.AirQuality;
 

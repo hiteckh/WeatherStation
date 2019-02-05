@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.DatabaseUploader;
+package src.org.bluej.WeatherStation.DatabaseUploader;
 
 /**
  * Main method for the database uploader to be used with little setup.

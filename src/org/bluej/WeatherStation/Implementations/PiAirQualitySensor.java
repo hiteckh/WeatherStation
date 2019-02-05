@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Implementations;
+package src.org.bluej.WeatherStation.Implementations;
 
 import org.bluej.WeatherStation.Drivers.MCP3427;
 import org.bluej.WeatherStation.Sensors.AirQualitySensor;

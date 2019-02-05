@@ -1,4 +1,4 @@
-package org.bluej.WeatherStation.Drivers;
+package src.org.bluej.WeatherStation.Drivers;
 
 import java.io.File;
 import java.io.FileReader;
