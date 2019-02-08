@@ -10,7 +10,7 @@ import org.bluej.WeatherStation.Implementations.Platform;
  * @author  Joe Reid
  */
 public class WeatherStation {
-    /**{@link HumiditySensor} instance built for the weather station.*/
+    
     private final HumiditySensor humiditySensor;
 
     /**{@link PressureSensor} instance built for the weather station.*/
