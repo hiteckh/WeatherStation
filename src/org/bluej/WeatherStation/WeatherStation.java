@@ -11,7 +11,6 @@ import org.bluej.WeatherStation.Implementations.Platform;
  */
 public class WeatherStation {
     
-    private final HumiditySensor humiditySensor;
 
     /**{@link PressureSensor} instance built for the weather station.*/
     private final PressureSensor pressureSensor;
